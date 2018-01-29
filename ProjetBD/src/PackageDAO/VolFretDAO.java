@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import DonnePOJO.*;
 
-public class VolFretDAO extends DAO<VolFretDAO> {
+public class VolFretDAO extends DAO<VolFret> {
 
 	public VolFretDAO(Connection conn) {
 		super(conn);
@@ -15,35 +15,35 @@ public class VolFretDAO extends DAO<VolFretDAO> {
 	}
 
 	@Override
-	public boolean create(VolPassager obj) {
+	public boolean create(VolFret obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(VolPassager obj) {
+	public boolean delete(VolFret obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(VolPassager obj) {
+	public boolean update(VolFret obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public VolPassager find(Object[] tab) {
+	public VolFret find(Object[] tab) {
 		String novol = (String) tab[0];
 		Date dt = (Date) tab[1];
-		VolPassager vol = null;
+		VolFret vol = null;
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM VolPassager WHERE noVol = " + novol+" AND dateDepart = " + dt);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM VolFret WHERE noVol = " + novol+" AND dateDepart = " + dt);
 		      if(result.first())
 
-		          vol = new VolPassager(result.getInt("placesMinEco"),result.getInt("placesMinPremiere"),result.getInt("placesMinAffaire"),result.getString("noVol"),result.getDate("dateDepart"));         
+		          vol = new VolFret(result.getInt("volumeMin"),result.getInt("poidsMin"),result.getFloat("prixMetreCube"),result.getString("noVol"),result.getDate("dateDepart"));         
 		          
 		    } catch (SQLException e) {
 

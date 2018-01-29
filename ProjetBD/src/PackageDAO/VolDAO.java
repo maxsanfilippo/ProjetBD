@@ -35,7 +35,7 @@ public class VolDAO extends DAO<Vol> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Vol WHERE noVol = " + obj.getNoVol());
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Vol WHERE noVol = " + obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,7 +50,7 @@ public class VolDAO extends DAO<Vol> {
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Vol SET aeroOrigine = " + obj.getAeroOrigine()+", aeroDestination = "+obj.getAeroDestination()
 			        +", duree = "+obj.getDuree()+", distance = "+obj.getDistance()+", arrive = "+obj.isArrive()+", noAvion = "+obj.getNoAvion()
-			        +" WHERE noVol = "+obj.getNoVol()+" AND dateDepart = "+obj.getDateDepart());
+			        +" WHERE noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -65,10 +65,10 @@ public class VolDAO extends DAO<Vol> {
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Vol WHERE noVol = " + novol+" AND dateDepart = " + dt);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Vol WHERE noVol = " + novol+" AND datedepart = " + dt);
 		      if(result.first())
 
-		          vol = new Vol(result.getString("noVol"), result.getDate("dateDepart"),result.getString("aeroOrigine"),result.getString("aeroDestination"),result.getInt("duree"),result.getInt("distance"),result.getBoolean("arrive"),result.getInt("noAvion"));         
+		          vol = new Vol(result.getString("noVol"), result.getDate("datedepart"),result.getString("aeroOrigine"),result.getString("aeroDestination"),result.getInt("duree"),result.getInt("distance"),result.getBoolean("arrive"),result.getInt("noAvion"));         
 		          
 		    } catch (SQLException e) {
 

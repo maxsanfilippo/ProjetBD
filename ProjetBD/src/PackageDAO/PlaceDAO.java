@@ -46,7 +46,6 @@ public class PlaceDAO extends DAO<Place> {
 		    	  Ht = new Place(result.getInt("idPlace"),result.getString("noPlace"),cl,p,result.getInt("prix"),result.getString("noVol"),result.getDate("dateDepart"),result.getInt("noResa"));
 		      }
 		} catch (SQLException e) {
-
 		      e.printStackTrace();
 		    }
 		return Ht;

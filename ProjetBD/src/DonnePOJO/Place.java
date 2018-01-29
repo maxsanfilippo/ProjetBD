@@ -4,7 +4,8 @@ import java.sql.Date;
 
 public class Place {
 
-	private int noPlace;
+	private int idPlace;
+	private String noPlace;
 	private Classe classe;
 	private Position position;
 	private int prix;
@@ -12,7 +13,8 @@ public class Place {
 	private Date DateDepart;
 	private int noResa;
 	
-	public Place(int noPlace, Classe classe, Position position, int prix, String noVol, Date dateDepart, int noResa) {
+	public Place(int idPlace, String noPlace, Classe classe, Position position, int prix, String noVol, Date dateDepart, int noResa) {
+		this.idPlace = idPlace;
 		this.noPlace = noPlace;
 		this.classe = classe;
 		this.position = position;
@@ -22,11 +24,19 @@ public class Place {
 		this.noResa = noResa;
 	}
 
-	public int getNoPlace() {
+	public int getIdPlace() {
+		return idPlace;
+	}
+
+	public void setIdPlace(int idPlace) {
+		this.idPlace = idPlace;
+	}
+	
+	public String getNoPlace() {
 		return noPlace;
 	}
 
-	public void setNoPlace(int noPlace) {
+	public void setNoPlace(String noPlace) {
 		this.noPlace = noPlace;
 	}
 

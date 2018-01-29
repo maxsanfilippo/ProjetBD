@@ -78,4 +78,5 @@ public class VolFretDAO extends DAO<VolFret> {
 		return vol;
 	}
 
+	
 }

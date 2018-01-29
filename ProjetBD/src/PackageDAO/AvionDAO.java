@@ -15,20 +15,42 @@ public class AvionDAO extends DAO<Avion> {
 
 	@Override
 	public boolean create(Avion obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Avion (" + obj.getNoAvion()+", " + obj.getRayon()+", "+obj.getNoModele()+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(Avion obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Avion WHERE noAvion = " + obj.getNoAvion());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(Avion obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Avion SET rayon = " + obj.getRayon()+", noModele = "+obj.getNoModele()
+			        +" WHERE noAvion = "+obj.getNoAvion());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override

@@ -15,20 +15,42 @@ public class HotesseDAO extends DAO<Hotesse> {
 
 	@Override
 	public boolean create(Hotesse obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Hotesse (" + obj.getSecondeLangue()+", " + obj.getIdPerso()+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(Hotesse obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Hotesse WHERE idPerso = " + obj.getIdPerso());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(Hotesse obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Hotesse SET secondeLangue = " + obj.getSecondeLangue()
+			        +" WHERE idPerso = "+obj.getIdPerso());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override

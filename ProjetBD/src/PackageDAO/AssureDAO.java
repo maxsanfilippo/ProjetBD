@@ -16,20 +16,33 @@ public class AssureDAO extends DAO<Assure> {
 
 	@Override
 	public boolean create(Assure obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO assure (" + obj.getIdPerso()+", " + obj.getNoVol()+", "+obj.getDateDepart()+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(Assure obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM assure WHERE idPerso = " + obj.getIdPerso()+" AND noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(Assure obj) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

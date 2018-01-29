@@ -15,20 +15,44 @@ public class PersonneDAO extends DAO<Personne> {
 
 	@Override
 	public boolean create(Personne obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Personne (" + obj.getIdPerso()+", " + obj.getNom()+", "+obj.getPrenom()
+			        +", "+obj.getNbHeuresVol()+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(Personne obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Personne WHERE idPerso = " + obj.getIdPerso());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(Personne obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Personne SET nom = " + obj.getNom()+", prenom = "+obj.getPrenom()
+			        +", nbHeuresVol = "+obj.getNbHeuresVol()
+			        +" WHERE idPerso = "+obj.getIdPerso());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override

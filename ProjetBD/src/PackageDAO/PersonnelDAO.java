@@ -15,20 +15,42 @@ public class PersonnelDAO extends DAO<Personnel> {
 
 	@Override
 	public boolean create(Personnel obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Personnel (" + obj.getIdPerso()+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(Personnel obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Personnel WHERE idPerso = " + obj.getIdPerso());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(Personnel obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Personnel SET idPerso = " + obj.getIdPerso()
+			        +" WHERE idPerso = "+obj.getIdPerso());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override

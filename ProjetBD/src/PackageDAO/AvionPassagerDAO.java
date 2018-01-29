@@ -15,20 +15,44 @@ public class AvionPassagerDAO extends DAO<AvionPassager> {
 
 	@Override
 	public boolean create(AvionPassager obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO AvionPassager (" + obj.getNbPlaces()+", " + obj.getNbPlacesEco()+", "+obj.getNbPlacesPremiere()
+			        +", "+obj.getNbPlacesAffaire()+", "+obj.getNoAvion()+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(AvionPassager obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM AvionPassager WHERE noAvion = " + obj.getNoAvion());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(AvionPassager obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE AvionPassager SET nbPlaces = " + obj.getNbPlaces()+", nbPlacesEco = "+obj.getNbPlacesEco()
+			        +", nbPlacesPremiere = "+obj.getNbPlacesPremiere()+", nbPlacesAffaire = "+obj.getNbPlacesAffaire()
+			        +" WHERE noAvion = "+obj.getNoAvion());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override

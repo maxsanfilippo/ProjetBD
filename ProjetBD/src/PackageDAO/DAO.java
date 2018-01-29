@@ -1,4 +1,4 @@
-package DonnePOJO;
+package PackageDAO;
 
 import java.sql.Connection;
 import com.sdz.connection.SdzConnection;

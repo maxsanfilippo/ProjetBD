@@ -6,42 +6,42 @@ import java.sql.SQLException;
 
 import DonnePOJO.*;
 
-public class AvionFretDAO extends DAO<AvionFret> {
+public class AvionPassagerDAO extends DAO<AvionPassager> {
 
-	public AvionFretDAO(Connection conn) {
+	public AvionPassagerDAO(Connection conn) {
 		super(conn);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public boolean create(AvionFret obj) {
+	public boolean create(AvionPassager obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(AvionFret obj) {
+	public boolean delete(AvionPassager obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(AvionFret obj) {
+	public boolean update(AvionPassager obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public AvionFret find(Object[] tab) {
+	public AvionPassager find(Object[] tab) {
 		int noAvion = (int) tab[0];
-		AvionFret Af=null;
+		AvionPassager AP=null;
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM AvionFret WHERE noVol = " + noAvion);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM AvionPassager WHERE noVol = " + noAvion);
 		      if(result.first())
 		      {
-		    	  Af = new AvionFret(result.getInt("volumeMax"),result.getInt("poidsMax"),result.getInt("noAvion"));
+		    	  AP = new AvionPassager(result.getInt("nbPlaces"),result.getInt("nbPlacesEco"),result.getInt("nbPlacesPremiere"), result.getInt("nbPlacesAffaire"), result.getInt("noAvion"));
 		      }
 		} catch (SQLException e) {
 
@@ -49,7 +49,7 @@ public class AvionFretDAO extends DAO<AvionFret> {
 
 		    }
 				
-		return Af;
+		return AP;
 	}
 
 }

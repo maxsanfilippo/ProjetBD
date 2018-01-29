@@ -6,50 +6,49 @@ import java.sql.SQLException;
 
 import DonnePOJO.*;
 
-public class AvionFretDAO extends DAO<AvionFret> {
+public class ClientDAO extends DAO<Client> {
 
-	public AvionFretDAO(Connection conn) {
+	public ClientDAO(Connection conn) {
 		super(conn);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public boolean create(AvionFret obj) {
+	public boolean create(Client obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(AvionFret obj) {
+	public boolean delete(Client obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(AvionFret obj) {
+	public boolean update(Client obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public AvionFret find(Object[] tab) {
-		int noAvion = (int) tab[0];
-		AvionFret Af=null;
+	public Client find(Object[] tab) {
+		int idPers = (int) tab[0];
+		Client cl = null;
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM AvionFret WHERE noVol = " + noAvion);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Client WHERE idPerso = " + idPers);
 		      if(result.first())
 		      {
-		    	  Af = new AvionFret(result.getInt("volumeMax"),result.getInt("poidsMax"),result.getInt("noAvion"));
+		    	  cl = new Client(result.getInt("idPerso"));
 		      }
 		} catch (SQLException e) {
 
 		      e.printStackTrace();
 
 		    }
-				
-		return Af;
+		return cl;
 	}
 
 }

@@ -45,7 +45,6 @@ public class SaitPiloterDAO extends DAO<SaitPiloter> {
 		    	  sP = new SaitPiloter(result.getInt("idPerso"),result.getString("noModele"));
 		      }
 		} catch (SQLException e) {
-
 		      e.printStackTrace();
 		    }
 		return sP;

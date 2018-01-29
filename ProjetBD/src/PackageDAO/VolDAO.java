@@ -1,10 +1,11 @@
-package DonnePOJO;
+package PackageDAO;
 
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import PackageDAO.Vol;
+import DonnePOJO.Vol;
 
 public class VolDAO extends DAO<Vol> {
 
@@ -32,8 +33,10 @@ public class VolDAO extends DAO<Vol> {
 	}
 
 	@Override
-	public Vol find(String novol,Date dt) {
-		Vol vol = new Vol();
+	public Vol find(Object[] T) {
+		String novol = (String) T[0];
+		Date dt = (Date) T[1];
+		Vol vol = null;
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -41,14 +44,15 @@ public class VolDAO extends DAO<Vol> {
 		      if(result.first())
 
 		          vol = new Vol(result.getString("noVol"), result.getDate("dateDepart"),result.getString("aeroOrigine"),result.getString("aeroDestination"),result.getInt("duree"),result.getInt("distance"),result.getBoolean("arrive"),result.getInt("noAvion"));         
-
+		          
 		    } catch (SQLException e) {
 
 		      e.printStackTrace();
 
 		    }
 		// TODO Auto-generated method stub
-		return null;
+		return vol;
 	}
+
 
 }

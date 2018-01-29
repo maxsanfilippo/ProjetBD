@@ -14,7 +14,6 @@ public class Vol {
 	
 	public Vol(String noVol, Date dateDepart, String aeroOrigine, String aeroDestination, int duree,
 			int distance, boolean bool, int noAvion) {
-		super();
 		this.noVol = noVol;
 		this.dateDepart = dateDepart;
 		this.aeroOrigine = aeroOrigine;

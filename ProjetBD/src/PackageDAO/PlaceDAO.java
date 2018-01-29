@@ -15,20 +15,45 @@ public class PlaceDAO extends DAO<Place> {
 
 	@Override
 	public boolean create(Place obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Place (" + obj.getIdPlace()+", " + obj.getNoPlace()+", "+obj.getClasse()
+			        +", "+obj.getPosition()+", "+obj.getPrix()+", "+obj.getNoVol()+", "+obj.getDateDepart()+", "+obj.getNoResa()+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(Place obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Place WHERE idPlace = " + obj.getIdPlace());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(Place obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Place SET noPlace = " + obj.getNoPlace()+", classe = "+obj.getClasse()
+			        +", position = "+obj.getPosition()+", prix = "+obj.getPrix()+", noVol = "+obj.getNoVol()
+			        +", datedepart = "+obj.getDateDepart()+", noResa = "+obj.getNoResa()
+			        +" WHERE idPlace = "+obj.getIdPlace());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override

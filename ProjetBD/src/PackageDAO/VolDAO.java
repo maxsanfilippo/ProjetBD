@@ -45,7 +45,6 @@ public class VolDAO extends DAO<Vol> {
 
 	@Override
 	public boolean update(Vol obj) {
-		// TODO Auto-generated method stub
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
@@ -53,7 +52,6 @@ public class VolDAO extends DAO<Vol> {
 			        +", duree = "+obj.getDuree()+", distance = "+obj.getDistance()+", arrive = "+obj.isArrive()+", noAvion = "+obj.getNoAvion()
 			        +" WHERE noVol = "+obj.getNoVol()+" AND dateDepart = "+obj.getDateDepart());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
@@ -77,7 +75,6 @@ public class VolDAO extends DAO<Vol> {
 		      e.printStackTrace();
 
 		    }
-		// TODO Auto-generated method stub
 		return vol;
 	}
 

@@ -17,20 +17,44 @@ public class VolPassagerDAO extends DAO<VolPassager> {
 
 	@Override
 	public boolean create(VolPassager obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO VolPassager (" + obj.getPlacesMinEco()+", " + obj.getPlacesMinPremiere()+", "+obj.getPlacesMinAffaire()
+			        +", "+obj.getNoVol()+", "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(VolPassager obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM VolPassager WHERE noVol = " + obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(VolPassager obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE VolPassager SET placesMinEco = " + obj.getPlacesMinEco()+", placesMinPremiere = "+obj.getPlacesMinPremiere()
+			        +", placesMinAffaire = "+obj.getPlacesMinAffaire()
+			        +" WHERE noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override

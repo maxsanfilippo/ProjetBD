@@ -16,20 +16,44 @@ public class VolFretDAO extends DAO<VolFret> {
 
 	@Override
 	public boolean create(VolFret obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO VolFret (" + obj.getVolumeMin()+", " + obj.getPoidsMin()+", "+obj.getPrixMetreCube()
+			        +", "+obj.getNoVol()+", "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(VolFret obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM VolFret WHERE noVol = " + obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(VolFret obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE VolFret SET volumeMin = " + obj.getVolumeMin()+", poidsMin = "+obj.getPoidsMin()
+			        +", prixMetreCube = "+obj.getPrixMetreCube()
+			        +" WHERE noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
@@ -40,10 +64,10 @@ public class VolFretDAO extends DAO<VolFret> {
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM VolFret WHERE noVol = " + novol+" AND dateDepart = " + dt);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM VolFret WHERE noVol = " + novol+" AND datedepart = " + dt);
 		      if(result.first())
 
-		          vol = new VolFret(result.getInt("volumeMin"),result.getInt("poidsMin"),result.getFloat("prixMetreCube"),result.getString("noVol"),result.getDate("dateDepart"));         
+		          vol = new VolFret(result.getInt("volumeMin"),result.getInt("poidsMin"),result.getFloat("prixMetreCube"),result.getString("noVol"),result.getDate("datedepart"));         
 		          
 		    } catch (SQLException e) {
 

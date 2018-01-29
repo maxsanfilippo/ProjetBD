@@ -1,7 +1,9 @@
-package PackageDAO;
+package DonnePOJO;
 
 import java.sql.Connection;
-import com.sdz.connection.SdzConnection;
+import java.sql.Date;
+
+import PackageDAO.Vol;
 
 public abstract class DAO<T> {
   protected Connection connect = null;
@@ -37,4 +39,9 @@ public abstract class DAO<T> {
   * @return T
   */
   public abstract T find(int id);
+
+public Vol find(String novol, Date dt) {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

@@ -10,7 +10,6 @@ public class Reservation {
 	private int idPerso;
 	
 	public Reservation(int noResa, Date dateResa, int prixTotal, int idPerso) {
-		super();
 		this.noResa = noResa;
 		this.dateResa = dateResa;
 		this.prixTotal = prixTotal;

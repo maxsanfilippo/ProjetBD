@@ -13,7 +13,6 @@ public class Place {
 	private int noResa;
 	
 	public Place(int noPlace, Classe classe, Position position, int prix, String noVol, Date dateDepart, int noResa) {
-		super();
 		this.noPlace = noPlace;
 		this.classe = classe;
 		this.position = position;

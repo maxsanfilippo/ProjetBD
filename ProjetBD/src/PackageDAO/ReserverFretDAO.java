@@ -16,20 +16,43 @@ public class ReserverFretDAO extends DAO<ReserverFret> {
 
 	@Override
 	public boolean create(ReserverFret obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO ReserverFret (" + obj.getVolumeResa()+", " + obj.getPoidsResa()+", "+obj.getNoResa()
+			        +", "+obj.getNoVol()+", "+obj.getDateDepart()+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(ReserverFret obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM ReserverFret WHERE noResa = " + obj.getNoResa()+" AND noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(ReserverFret obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE ReserverFret SET volumeResa = " + obj.getVolumeResa()+", poidsResa = "+obj.getPoidsResa()
+			        +" WHERE noResa = "+obj.getNoResa()+" AND noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override

@@ -15,20 +15,33 @@ public class SaitPiloterDAO extends DAO<SaitPiloter> {
 
 	@Override
 	public boolean create(SaitPiloter obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO saitPiloter (" + obj.getIdPerso()+", " + obj.getNoModele()+")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(SaitPiloter obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM saitPiloter WHERE idPerso = " + obj.getIdPerso()+" AND noModele = "+obj.getNoModele());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(SaitPiloter obj) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -39,7 +52,7 @@ public class SaitPiloterDAO extends DAO<SaitPiloter> {
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM SaitPiloter WHERE idPerso = " + idPers);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM SaitPiloter WHERE idPerso = " + idPers+ " AND noModele = "+nMod);
 		      if(result.first())
 		      {
 		    	  sP = new SaitPiloter(result.getInt("idPerso"),result.getString("noModele"));

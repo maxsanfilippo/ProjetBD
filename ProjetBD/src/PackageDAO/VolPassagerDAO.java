@@ -21,7 +21,7 @@ public class VolPassagerDAO extends DAO<VolPassager> {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO VolPassager (" + obj.getPlacesMinEco()+", " + obj.getPlacesMinPremiere()+", "+obj.getPlacesMinAffaire()
-			        +", "+obj.getNoVol()+", "+obj.getDateDepart());
+			        +", "+obj.getNoVol()+", "+obj.getDateDepart()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

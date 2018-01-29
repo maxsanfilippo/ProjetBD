@@ -56,6 +56,12 @@ public class VolFret {
 	public void setDateDepart(Date dateDepart) {
 		this.dateDepart = dateDepart;
 	}
+
+	@Override
+	public String toString() {
+		return "VolFret [volumeMin=" + volumeMin + ", poidsMin=" + poidsMin + ", prixMetreCube=" + prixMetreCube
+				+ ", noVol=" + noVol + ", dateDepart=" + dateDepart + "]";
+	}
 	
 	
 }

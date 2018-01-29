@@ -17,19 +17,46 @@ public class VolDAO extends DAO<Vol> {
 	@Override
 	public boolean create(Vol obj) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Vol (" + obj.getNoVol()+", " + obj.getDateDepart()+", "+obj.getAeroOrigine()
+			        +", "+obj.getAeroDestination()+", "+obj.getDuree()+", "+obj.getDistance()+", "+obj.getDistance()+", "+obj.isArrive()+", "+obj.getNoAvion());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean delete(Vol obj) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Vol WHERE noVol = " + obj.getNoVol());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override
 	public boolean update(Vol obj) {
 		// TODO Auto-generated method stub
-		return false;
+		try {
+			ResultSet result = this.connect.createStatement(
+			        ResultSet.TYPE_SCROLL_INSENSITIVE,
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Vol SET aeroOrigine = " + obj.getAeroOrigine()+", aeroDestination = "+obj.getAeroDestination()
+			        +", duree = "+obj.getDuree()+", distance = "+obj.getDistance()+", arrive = "+obj.isArrive()+", noAvion = "+obj.getNoAvion()
+			        +" WHERE noVol = "+obj.getNoVol()+" AND dateDepart = "+obj.getDateDepart());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	@Override

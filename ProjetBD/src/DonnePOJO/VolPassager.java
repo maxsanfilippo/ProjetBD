@@ -58,6 +58,12 @@ public class VolPassager {
 	public void setDateDepart(Date dateDepart) {
 		this.dateDepart = dateDepart;
 	}
+
+	@Override
+	public String toString() {
+		return "VolPassager [placesMinEco=" + placesMinEco + ", placesMinPremiere=" + placesMinPremiere
+				+ ", placesMinAffaire=" + placesMinAffaire + ", noVol=" + noVol + ", dateDepart=" + dateDepart + "]";
+	}
 	
 	
 }

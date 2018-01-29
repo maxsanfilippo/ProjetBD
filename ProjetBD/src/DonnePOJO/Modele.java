@@ -96,6 +96,13 @@ public class Modele {
 	public void setNbPlacesAffaire(int nbPlacesAffaire) {
 		this.nbPlacesAffaire = nbPlacesAffaire;
 	}
+
+	@Override
+	public String toString() {
+		return "Modele [noModele=" + noModele + ", nbPilotes=" + nbPilotes + ", rayon=" + rayon + ", volumeMax="
+				+ volumeMax + ", poidsMax=" + poidsMax + ", nbPlaces=" + nbPlaces + ", nbPlacesEco=" + nbPlacesEco
+				+ ", nbPlacesPremiere=" + nbPlacesPremiere + ", nbPlacesAffaire=" + nbPlacesAffaire + "]";
+	}
 	
 	
 }

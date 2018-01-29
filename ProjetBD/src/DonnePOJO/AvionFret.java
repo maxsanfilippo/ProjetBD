@@ -35,6 +35,11 @@ public class AvionFret {
 	public void setNoAvion(int noAvion) {
 		this.noAvion = noAvion;
 	}
+
+	@Override
+	public String toString() {
+		return "AvionFret [volumeMax=" + volumeMax + ", poidsMax=" + poidsMax + ", noAvion=" + noAvion + "]";
+	}
 	
 	
 }

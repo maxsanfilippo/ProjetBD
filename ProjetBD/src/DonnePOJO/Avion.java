@@ -35,6 +35,11 @@ public class Avion {
 	public void setNoModele(String noModele) {
 		this.noModele = noModele;
 	}
+
+	@Override
+	public String toString() {
+		return "Avion [noAvion=" + noAvion + ", rayon=" + rayon + ", noModele=" + noModele + "]";
+	}
 	
 	
 }

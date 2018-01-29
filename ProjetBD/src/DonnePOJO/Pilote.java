@@ -15,6 +15,11 @@ public class Pilote {
 	public void setIdPerso(int idPerso) {
 		this.idPerso = idPerso;
 	}
+
+	@Override
+	public String toString() {
+		return "Pilote [idPerso=" + idPerso + "]";
+	}
 	
 	
 }

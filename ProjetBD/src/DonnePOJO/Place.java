@@ -77,6 +77,12 @@ public class Place {
 	public void setNoResa(int noResa) {
 		this.noResa = noResa;
 	}
+
+	@Override
+	public String toString() {
+		return "Place [noPlace=" + noPlace + ", classe=" + classe + ", position=" + position + ", prix=" + prix
+				+ ", noVol=" + noVol + ", DateDepart=" + DateDepart + ", noResa=" + noResa + "]";
+	}
 	
 	
 }

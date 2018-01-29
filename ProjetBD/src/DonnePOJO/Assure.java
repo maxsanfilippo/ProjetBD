@@ -37,5 +37,11 @@ public class Assure {
 	public void setDateDepart(Date dateDepart) {
 		this.dateDepart = dateDepart;
 	}
+
+	@Override
+	public String toString() {
+		return "Assure [idPerso=" + idPerso + ", noVol=" + noVol + ", dateDepart=" + dateDepart + "]";
+	}
+	
 	
 }

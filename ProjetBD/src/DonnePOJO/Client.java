@@ -15,6 +15,11 @@ public class Client {
 	public void setIdPerso(int idPerso) {
 		this.idPerso = idPerso;
 	}
+
+	@Override
+	public String toString() {
+		return "Client [idPerso=" + idPerso + "]";
+	}
 	
 	
 }

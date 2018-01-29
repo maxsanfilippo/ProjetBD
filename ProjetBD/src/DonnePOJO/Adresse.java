@@ -75,6 +75,12 @@ public class Adresse {
 	public void setIdPerso(int idPerso) {
 		this.idPerso = idPerso;
 	}
+
+	@Override
+	public String toString() {
+		return "Adresse [idAdresse=" + idAdresse + ", noAdresse=" + noAdresse + ", rue=" + rue + ", cpp=" + cpp
+				+ ", Ville=" + Ville + ", pays=" + pays + ", idPerso=" + idPerso + "]";
+	}
 	
 	
 }

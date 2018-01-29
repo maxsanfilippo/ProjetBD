@@ -25,6 +25,11 @@ public class Hotesse {
 	public void setSecondeLangue(String secondeLangue) {
 		this.secondeLangue = secondeLangue;
 	}
+
+	@Override
+	public String toString() {
+		return "Hotesse [idPerso=" + idPerso + ", secondeLangue=" + secondeLangue + "]";
+	}
 	
 	
 }

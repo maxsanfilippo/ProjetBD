@@ -15,6 +15,11 @@ public class Personnel {
 	public void setIdPerso(int idPerso) {
 		this.idPerso = idPerso;
 	}
+
+	@Override
+	public String toString() {
+		return "Personnel [idPerso=" + idPerso + "]";
+	}
 	
 	
 }

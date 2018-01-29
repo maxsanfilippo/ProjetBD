@@ -9,18 +9,18 @@ public class Vol {
 	private String aeroDestination;
 	private int duree;
 	private int distance;
-	private boolean bool;
+	private boolean arrive;
 	private int noAvion;
 	
 	public Vol(String noVol, Date dateDepart, String aeroOrigine, String aeroDestination, int duree,
-			int distance, boolean bool, int noAvion) {
+			int distance, boolean arrive, int noAvion) {
 		this.noVol = noVol;
 		this.dateDepart = dateDepart;
 		this.aeroOrigine = aeroOrigine;
 		this.aeroDestination = aeroDestination;
 		this.duree = duree;
 		this.distance = distance;
-		this.bool = bool;
+		this.arrive = arrive;
 		this.noAvion = noAvion;
 	}
 
@@ -72,12 +72,12 @@ public class Vol {
 		this.distance = distance;
 	}
 
-	public boolean isBool() {
-		return bool;
+	public boolean isArrive() {
+		return arrive;
 	}
 
-	public void setBool(boolean bool) {
-		this.bool = bool;
+	public void setArrive(boolean arrive) {
+		this.arrive = arrive;
 	}
 
 	public int getNoAvion() {
@@ -86,6 +86,13 @@ public class Vol {
 
 	public void setNoAvion(int noAvion) {
 		this.noAvion = noAvion;
+	}
+
+	@Override
+	public String toString() {
+		return "Vol [noVol=" + noVol + ", dateDepart=" + dateDepart + ", aeroOrigine=" + aeroOrigine
+				+ ", aeroDestination=" + aeroDestination + ", duree=" + duree + ", distance=" + distance + ", arrive="
+				+ arrive + ", noAvion=" + noAvion + "]";
 	}
 	
 	

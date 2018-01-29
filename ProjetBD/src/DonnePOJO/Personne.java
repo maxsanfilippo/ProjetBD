@@ -45,6 +45,12 @@ public class Personne {
 	public void setNbHeuresVol(int nbHeuresVol) {
 		this.nbHeuresVol = nbHeuresVol;
 	}
+
+	@Override
+	public String toString() {
+		return "Personne [idPerso=" + idPerso + ", nom=" + nom + ", prenom=" + prenom + ", nbHeuresVol=" + nbHeuresVol
+				+ "]";
+	}
 	
 	
 }

@@ -58,6 +58,12 @@ public class ReserverFret {
 	public void setDateDepart(Date dateDepart) {
 		this.dateDepart = dateDepart;
 	}
+
+	@Override
+	public String toString() {
+		return "ReserverFret [volumeResa=" + volumeResa + ", poidsResa=" + poidsResa + ", noResa=" + noResa + ", noVol="
+				+ noVol + ", dateDepart=" + dateDepart + "]";
+	}
 	
 	
 }

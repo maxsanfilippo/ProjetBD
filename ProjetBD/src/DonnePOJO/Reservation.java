@@ -47,6 +47,12 @@ public class Reservation {
 	public void setIdPerso(int idPerso) {
 		this.idPerso = idPerso;
 	}
+
+	@Override
+	public String toString() {
+		return "Reservation [noResa=" + noResa + ", dateResa=" + dateResa + ", prixTotal=" + prixTotal + ", idPerso="
+				+ idPerso + "]";
+	}
 	
 	
 }

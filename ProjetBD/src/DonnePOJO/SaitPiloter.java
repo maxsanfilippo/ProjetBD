@@ -25,6 +25,11 @@ public class SaitPiloter {
 	public void setNoModele(String noModele) {
 		this.noModele = noModele;
 	}
+
+	@Override
+	public String toString() {
+		return "SaitPiloter [idPerso=" + idPerso + ", noModele=" + noModele + "]";
+	}
 	
 	
 }

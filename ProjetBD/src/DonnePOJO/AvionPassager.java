@@ -55,6 +55,12 @@ public class AvionPassager {
 	public void setNoAvion(int noAvion) {
 		this.noAvion = noAvion;
 	}
+
+	@Override
+	public String toString() {
+		return "AvionPassager [nbPlaces=" + nbPlaces + ", nbPlacesEco=" + nbPlacesEco + ", nbPlacesPremiere="
+				+ nbPlacesPremiere + ", nbPlacesAffaire=" + nbPlacesAffaire + ", noAvion=" + noAvion + "]";
+	}
 	
 	
 }

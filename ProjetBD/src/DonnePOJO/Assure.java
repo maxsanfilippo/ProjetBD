@@ -1,14 +1,14 @@
 package DonnePOJO;
 
-import java.sql.Date;
+import oracle.sql.TIMESTAMP;
 
 public class Assure {
 
 	private int idPerso;
 	private String noVol;
-	private Date dateDepart;
+	private TIMESTAMP dateDepart;
 	
-	public Assure(int idPerso, String noVol, Date dateDepart) {
+	public Assure(int idPerso, String noVol, TIMESTAMP dateDepart) {
 		this.idPerso = idPerso;
 		this.noVol = noVol;
 		this.dateDepart = dateDepart;
@@ -30,11 +30,11 @@ public class Assure {
 		this.noVol = noVol;
 	}
 
-	public Date getDateDepart() {
+	public TIMESTAMP getDateDepart() {
 		return dateDepart;
 	}
 
-	public void setDateDepart(Date dateDepart) {
+	public void setDateDepart(TIMESTAMP dateDepart) {
 		this.dateDepart = dateDepart;
 	}
 

@@ -1,15 +1,15 @@
 package DonnePOJO;
 
-import java.sql.Date;
+import oracle.sql.TIMESTAMP;
 
 public class VolFret {
 	private int volumeMin;
 	private int poidsMin;
 	private float prixMetreCube;
 	private String noVol;
-	private Date dateDepart;
+	private TIMESTAMP dateDepart;
 	
-	public VolFret(int volumeMin, int poidsMin, float prixMetreCube, String noVol, Date dateDepart) {
+	public VolFret(int volumeMin, int poidsMin, float prixMetreCube, String noVol, TIMESTAMP dateDepart) {
 		this.volumeMin = volumeMin;
 		this.poidsMin = poidsMin;
 		this.prixMetreCube = prixMetreCube;
@@ -49,11 +49,11 @@ public class VolFret {
 		this.noVol = noVol;
 	}
 
-	public Date getDateDepart() {
+	public TIMESTAMP getDateDepart() {
 		return dateDepart;
 	}
 
-	public void setDateDepart(Date dateDepart) {
+	public void setDateDepart(TIMESTAMP dateDepart) {
 		this.dateDepart = dateDepart;
 	}
 

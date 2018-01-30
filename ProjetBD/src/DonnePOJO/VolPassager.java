@@ -1,6 +1,6 @@
 package DonnePOJO;
 
-import java.sql.Date;
+import oracle.sql.TIMESTAMP;
 
 public class VolPassager {
 
@@ -8,10 +8,9 @@ public class VolPassager {
 	private int placesMinPremiere;
 	private int placesMinAffaire;
 	private String noVol;
-	private Date dateDepart;
+	private TIMESTAMP dateDepart;
 	
-	public VolPassager(int placesMinEco, int placesMinPremiere, int placesMinAffaire, String noVol, Date dateDepart) {
-		super();
+	public VolPassager(int placesMinEco, int placesMinPremiere, int placesMinAffaire, String noVol, TIMESTAMP dateDepart) {
 		this.placesMinEco = placesMinEco;
 		this.placesMinPremiere = placesMinPremiere;
 		this.placesMinAffaire = placesMinAffaire;
@@ -51,11 +50,11 @@ public class VolPassager {
 		this.noVol = noVol;
 	}
 
-	public Date getDateDepart() {
+	public TIMESTAMP getDateDepart() {
 		return dateDepart;
 	}
 
-	public void setDateDepart(Date dateDepart) {
+	public void setDateDepart(TIMESTAMP dateDepart) {
 		this.dateDepart = dateDepart;
 	}
 

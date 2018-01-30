@@ -1,6 +1,6 @@
 package DonnePOJO;
 
-import java.sql.Date;
+import oracle.sql.TIMESTAMP;
 
 public class ReserverFret {
 
@@ -8,9 +8,9 @@ public class ReserverFret {
 	private int poidsResa;
 	private int noResa;
 	private String noVol;
-	private Date dateDepart;
+	private TIMESTAMP dateDepart;
 	
-	public ReserverFret(int volumeResa, int poidsResa, int noResa, String noVol, Date dateDepart) {
+	public ReserverFret(int volumeResa, int poidsResa, int noResa, String noVol, TIMESTAMP dateDepart) {
 		super();
 		this.volumeResa = volumeResa;
 		this.poidsResa = poidsResa;
@@ -51,11 +51,11 @@ public class ReserverFret {
 		this.noVol = noVol;
 	}
 
-	public Date getDateDepart() {
+	public TIMESTAMP getDateDepart() {
 		return dateDepart;
 	}
 
-	public void setDateDepart(Date dateDepart) {
+	public void setDateDepart(TIMESTAMP dateDepart) {
 		this.dateDepart = dateDepart;
 	}
 

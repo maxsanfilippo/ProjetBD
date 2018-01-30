@@ -15,6 +15,7 @@ public class MenuChoixModificationVol {
 		System.out.println("6 : ajouter un personnel");
 		System.out.println("6 : supprimer un personnel");
 		
+		
 		// saisie choix
 		int choix = 0;
 		switch(choix) {

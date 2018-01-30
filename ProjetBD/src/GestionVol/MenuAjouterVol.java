@@ -59,6 +59,7 @@ public class MenuAjouterVol {
 		}
 		
 		try {
+			conn.getConn().commit();
 			conn.disconnect();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

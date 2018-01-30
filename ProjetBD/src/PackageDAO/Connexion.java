@@ -33,8 +33,7 @@ static final String CONN_URL = "jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr
 		    // code métier de la fonctionnalité
 
 	  	    // Liberation des ressources et fermeture de la connexion...
-	       	// A COMPLETER
-	 		conn.close(); 
+	       	// A COMPLETER 
 	 	    
 	  	    System.out.println("bye.");
 	  	    
@@ -50,5 +49,14 @@ static final String CONN_URL = "jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr
 
           }
      }
+
+	public void disconnect() throws SQLException {
+		conn.close();
+	}
+	
+	public Connection getConn()
+	{
+		return this.conn;
+	}
 		
 }

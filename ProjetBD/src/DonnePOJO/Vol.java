@@ -12,6 +12,17 @@ public class Vol {
 	private boolean arrive;
 	private int noAvion;
 	
+	public Vol(String noVol, Date dateDepart, String aeroOrigine, String aeroDestination,
+			int distance, boolean arrive, int noAvion) {
+		this.noVol = noVol;
+		this.dateDepart = dateDepart;
+		this.aeroOrigine = aeroOrigine;
+		this.aeroDestination = aeroDestination;
+		this.distance = distance;
+		this.arrive = arrive;
+		this.noAvion = noAvion;
+	}
+	
 	public Vol(String noVol, Date dateDepart, String aeroOrigine, String aeroDestination, int duree,
 			int distance, boolean arrive, int noAvion) {
 		this.noVol = noVol;

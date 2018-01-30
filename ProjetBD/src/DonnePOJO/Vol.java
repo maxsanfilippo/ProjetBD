@@ -9,11 +9,11 @@ public class Vol {
 	private String aeroDestination;
 	private int duree;
 	private int distance;
-	private boolean arrive;
+	private int arrive;
 	private int noAvion;
 	
 	public Vol(String noVol, TIMESTAMP dateDepart, String aeroOrigine, String aeroDestination,
-			int distance, boolean arrive, int noAvion) {
+			int distance, int arrive, int noAvion) {
 		this.noVol = noVol;
 		this.dateDepart = dateDepart;
 		this.aeroOrigine = aeroOrigine;
@@ -24,7 +24,7 @@ public class Vol {
 	}
 	
 	public Vol(String noVol, TIMESTAMP dateDepart, String aeroOrigine, String aeroDestination, int duree,
-			int distance, boolean arrive, int noAvion) {
+			int distance, int arrive, int noAvion) {
 		this.noVol = noVol;
 		this.dateDepart = dateDepart;
 		this.aeroOrigine = aeroOrigine;
@@ -83,11 +83,11 @@ public class Vol {
 		this.distance = distance;
 	}
 
-	public boolean isArrive() {
+	public int isArrive() {
 		return arrive;
 	}
 
-	public void setArrive(boolean arrive) {
+	public void setArrive(int arrive) {
 		this.arrive = arrive;
 	}
 

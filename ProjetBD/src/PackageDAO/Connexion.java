@@ -8,8 +8,8 @@ public class Connexion {
 
 static final String CONN_URL = "jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag";
 	
-	static final String USER = "A COMPLETER";
-	static final String PASSWD = "A COMPLETER";
+	static final String USER = "sanfilma";
+	static final String PASSWD = "Batterie1";
 
 	static Connection conn; 
 	

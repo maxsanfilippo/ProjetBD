@@ -65,7 +65,7 @@ public class ModeleDAO extends DAO<Modele> {
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Modele WHERE noModele = " + noMod);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Modele WHERE noModele = '" + noMod +"'");
 		      if(result.first())
 		      {
 		    	  Md = new Modele(result.getString("noModele"),result.getInt("nbPilotes"),result.getInt("rayon"),result.getInt("volumeMax"),result.getInt("poidsMax"),result.getInt("nbPlaces"),result.getInt("nbPlacesEco"),result.getInt("nbPlacesPremiere"),result.getInt("nbPlacesAffaire"));

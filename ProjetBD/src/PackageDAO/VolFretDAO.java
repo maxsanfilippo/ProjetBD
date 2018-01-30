@@ -21,7 +21,7 @@ public class VolFretDAO extends DAO<VolFret> {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO VolFret (volumeMin, poidsMin, prixMetreCube, noVol, datedepart) VALUES (" + obj.getVolumeMin()+", " + obj.getPoidsMin()+", "+obj.getPrixMetreCube()
-			        +", "+obj.getNoVol()+", "+obj.getDateDepart()+")");
+			        +", '"+obj.getNoVol()+"', TIMESTAMP '"+obj.getDateDepart()+"')");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

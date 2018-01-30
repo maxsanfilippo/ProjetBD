@@ -31,13 +31,14 @@ public class MenuAjouterVol {
 	
 	public void AfficherMenu(Connexion conn)
 	{
+		conn.connect();
 		try {
 			conn.getConn().setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		conn.connect();
+		
 		
 		
 		System.out.println("Veuillez saisir votre choix de type de VOl");
@@ -93,7 +94,7 @@ public class MenuAjouterVol {
 		Avion a;
 		
 		ArrayList<Avion> Av;
-		Av = recupAvionFretDispo(conn, dt, noVol, aeroOrigine);
+		Av = recupAvionFretDispo(conn, dt, noVol, aeroOrigine, volume, Poids);
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
 		AfficherAvion(Av);
@@ -125,7 +126,7 @@ public class MenuAjouterVol {
 		
 		//creation
 		
-		Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,false,a.getNoAvion());
+		Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,0,a.getNoAvion());
 		VolDAO volD = new VolDAO(conn.getConn());
 		volD.create(v);
 		
@@ -214,7 +215,7 @@ public class MenuAjouterVol {
 		}
 		//creation
 		
-		Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,false,a.getNoAvion());
+		Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,0,a.getNoAvion());
 		VolDAO volD = new VolDAO(conn.getConn());
 		volD.create(v);
 		
@@ -325,9 +326,13 @@ public class MenuAjouterVol {
 		
 		try {
 			requete = conn.getConn().createStatement();
-			resultat = requete.executeQuery("SELECT * FROM Pilote join Personne on Personne.idPerso=Pilote.idPerso join saitPiloter on saitPiloter.idPerso=Pilote.idPerso "
-					+ "WHERE saitPiloter.noModele="+a.getNoModele()+" AND idPerso NOT IN (select * From assure join Vol on assure.noVol=Vol.noVol And assure.datedepart=Vol.datedepart "
-					+ "where Vol.arrive=false AND datedepart > "+dt+")");
+			resultat = requete.executeQuery("SELECT Pilote.idPerso, Personne.nom, Personne.prenom, Personne.nbHeuresVol FROM Pilote"
+					+" JOIN PERSONNEL ON PERSONNEL.idPerso=Pilote.idPerso"
+					+" join Personne on Personne.idPerso=PERSONNEL.idPerso"
+					+" join saitPiloter on saitPiloter.idPerso=Pilote.idPerso"
+					+" WHERE saitPiloter.noModele= '"+a.getNoModele()+"' AND Pilote.idPerso NOT IN ("
+					+" select idPerso From assure join Vol on assure.noVol=Vol.noVol And assure.datedepart=Vol.datedepart"
+					+" where Vol.arrive=0 AND Vol.datedepart > TIMESTAMP '"+dt+"')");
 			while(resultat.next())
 			{
 				result.add(new Personne(resultat.getInt("idPerso"),resultat.getString("nom"),resultat.getString("prenom"),resultat.getInt("nbHeuresVol")));
@@ -361,7 +366,7 @@ public class MenuAjouterVol {
 		
 	}
 
-	public ArrayList<Avion> recupAvionFretDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine) {
+	public ArrayList<Avion> recupAvionFretDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine, int volume, int poids) {
 		Statement requete;
 		ResultSet resultat;
 		ArrayList<Avion> result = new ArrayList<Avion>();
@@ -369,10 +374,12 @@ public class MenuAjouterVol {
 		
 		try {
 			requete = conn.getConn().createStatement();
-			resultat = requete.executeQuery("SELECT * FROM AVIONFRET WHERE (noAvion NOT IN "
-					+ "(select noAvion From Vol where Vol.arrive=false AND datedepart > "+dt+") AND "
-							+ "noAvion IN (select max(datedepart), noAvion From Vol where Vol.arrive=true"
-							+ " AND aeroDestination = " + aeroOrigine +")) OR noAvion IN (select noAvion from Vol)");
+			resultat = requete.executeQuery("SELECT Avion.noAvion, Avion.rayon, Avion.noModele FROM Vol"
+					+" JOIN AVION ON AVION.noAvion = Vol.noAvion"
+					+" JOIN AvionFret ON AvionFret.noAvion = AVION.noAvion"
+					+" WHERE Vol.datedepart IN(SELECT max(Vol.dateDepart) FROM Vol GROUP BY noAvion) AND aeroDestination= '"+aeroOrigine+"' AND arrive = 0"
+					+" AND AvionFret.volumeMax >= "+volume+" AND AvionFret.poidsMax >= "+poids);
+
 			while(resultat.next())
 			{
 				result.add(new Avion(resultat.getInt("noAvion"), resultat.getInt("rayon"), resultat.getString("noModele")));

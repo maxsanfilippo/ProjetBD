@@ -7,30 +7,38 @@ public class MenuVol {
 	
 	private Connexion conn;
 	private LectureClavier lecture;
+	private boolean quit;
 	
 	public MenuVol()
 	{
 		this.conn = new Connexion();
 		this.lecture = new LectureClavier();
+		this.quit = false;
 	}
 
 	public void afficherMenu() {
-		System.out.println("Veuillez saisir votre choix");
-		System.out.println("------------------------------------------------------------------------------");
-		System.out.println("| 1 . Consulter les Vol en cour ## non terminé");
-		System.out.println("------------------------------------------------------------------------------");
-		System.out.println("| 2 . Ajouter un nouveau Vol ## non terminé");
-		System.out.println("------------------------------------------------------------------------------");
-		System.out.println("| 3 . Modifier un Vol ## non terminé");
-		System.out.println("------------------------------------------------------------------------------");
-		System.out.println("| 4 . Supprimer un Vol ## non terminé");
-		System.out.println("------------------------------------------------------------------------------");
-
-		// Saisir choix | String choix = ....
 		
-		String choix;
-		choix = this.lecture.lireChaine();
-		this.choixFonct(choix);
+		while(quit==false)
+		{
+			System.out.println("Veuillez saisir votre choix");
+			System.out.println("------------------------------------------------------------------------------");
+			System.out.println("| 1 . Consulter les Vol en cour ## non terminé");
+			System.out.println("------------------------------------------------------------------------------");
+			System.out.println("| 2 . Ajouter un nouveau Vol ## non terminé");
+			System.out.println("------------------------------------------------------------------------------");
+			System.out.println("| 3 . Modifier un Vol ## non terminé");
+			System.out.println("------------------------------------------------------------------------------");
+			System.out.println("| 4 . Supprimer un Vol ## non terminé");
+			System.out.println("------------------------------------------------------------------------------");
+			System.out.println("| 5 . Quitter");
+			System.out.println("------------------------------------------------------------------------------");
+	
+			// Saisir choix | String choix = ....
+			
+			String choix;
+			choix = this.lecture.lireChaine();
+			this.choixFonct(choix);
+		}
 
 	}
 
@@ -49,6 +57,8 @@ public class MenuVol {
 			mM.afficherMenuModifier(conn);break;
 		case "4" :
 			MenuSupprVol mS = new MenuSupprVol();break;
+		case "5" :
+			this.quit=true; break;
 		}
 		
 	}

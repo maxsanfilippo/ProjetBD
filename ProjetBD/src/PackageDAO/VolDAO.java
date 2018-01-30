@@ -21,8 +21,8 @@ public class VolDAO extends DAO<Vol> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Vol (noVol, datedepart, aeroOrigine, aeroDestination, duree, distance, arrive, noAvion) VALUES (" + obj.getNoVol()+", " + obj.getDateDepart()+", "+obj.getAeroOrigine()
-			        +", "+obj.getAeroDestination()+", "+obj.getDuree()+", "+obj.getDistance()+", "+obj.isArrive()+", "+obj.getNoAvion()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Vol (noVol, datedepart, aeroOrigine, aeroDestination, duree, distance, arrive, noAvion) VALUES ('" + obj.getNoVol()+"', TIMESTAMP '" + obj.getDateDepart()+"', '"+obj.getAeroOrigine()
+			        +"', '"+obj.getAeroDestination()+"', "+obj.getDuree()+", "+obj.getDistance()+", "+obj.isArrive()+", "+obj.getNoAvion()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,7 +69,7 @@ public class VolDAO extends DAO<Vol> {
 		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Vol WHERE noVol = " + novol+" AND datedepart = " + dt);
 		      if(result.first())
 
-		          vol = new Vol(result.getString("noVol"), new TIMESTAMP(result.getDate("dateDepart")),result.getString("aeroOrigine"),result.getString("aeroDestination"),result.getInt("duree"),result.getInt("distance"),result.getBoolean("arrive"),result.getInt("noAvion"));         
+		          vol = new Vol(result.getString("noVol"), new TIMESTAMP(result.getDate("dateDepart")),result.getString("aeroOrigine"),result.getString("aeroDestination"),result.getInt("duree"),result.getInt("distance"),result.getInt("arrive"),result.getInt("noAvion"));         
 		          
 		    } catch (SQLException e) {
 

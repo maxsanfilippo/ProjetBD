@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DonnePOJO.Vol;
+import oracle.sql.TIMESTAMP;
 
 public class VolDAO extends DAO<Vol> {
 
@@ -68,7 +69,7 @@ public class VolDAO extends DAO<Vol> {
 		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Vol WHERE noVol = " + novol+" AND datedepart = " + dt);
 		      if(result.first())
 
-		          vol = new Vol(result.getString("noVol"), result.getDate("datedepart"),result.getString("aeroOrigine"),result.getString("aeroDestination"),result.getInt("duree"),result.getInt("distance"),result.getBoolean("arrive"),result.getInt("noAvion"));         
+		          vol = new Vol(result.getString("noVol"), new TIMESTAMP(result.getDate("dateDepart")),result.getString("aeroOrigine"),result.getString("aeroDestination"),result.getInt("duree"),result.getInt("distance"),result.getBoolean("arrive"),result.getInt("noAvion"));         
 		          
 		    } catch (SQLException e) {
 

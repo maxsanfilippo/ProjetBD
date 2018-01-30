@@ -42,7 +42,7 @@ public class MenuVol {
 			mC.afficherVols(this.conn);
 		case "2" :
 			MenuAjouterVol mA = new MenuAjouterVol();
-			mA.afficherMenuAjout(this.conn);
+			mA.AfficherMenu(this.conn);
 		case "3" :
 			MenuModifierVol mM = new MenuModifierVol();
 		case "4" :

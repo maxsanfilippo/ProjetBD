@@ -8,41 +8,64 @@ import DonnePOJO.Avion;
 import DonnePOJO.Modele;
 import DonnePOJO.Personne;
 import DonnePOJO.Pilote;
+import DonnePOJO.Place;
 import DonnePOJO.Vol;
+import DonnePOJO.VolPassager;
 import Outils.LectureClavier;
 import PackageDAO.AvionDAO;
 import PackageDAO.Connexion;
 import PackageDAO.ModeleDAO;
+import PackageDAO.PlaceDAO;
+import PackageDAO.VolDAO;
+import PackageDAO.VolPassagerDAO;
 import oracle.sql.TIMESTAMP;
 
 public class MenuAjouterVol {
 	
-	private LectureClavier lec;
 	
-	public MenuAjouterVol()
+	public void AfficherMenu(Connexion conn)
 	{
-		this.lec = new LectureClavier();
+		System.out.println("Veuillez saisir votre choix de type de VOl");
+		System.out.println("------------------------------------------------------------------------------");
+		System.out.println("| 1 . Vol Fret ## non terminé");
+		System.out.println("------------------------------------------------------------------------------");
+		System.out.println("| 2 . Vol Passager ## non terminé");
+		System.out.println("------------------------------------------------------------------------------");
+		
+		String choixType;
+		choixType = LectureClavier.lireChaine();
+		switch (choixType)
+		{
+		case "1":
+			ajouterVolFret(conn);
+		case "2":
+			ajouterVolPassager(conn);
+		}
 	}
 
-	public void afficherMenuAjout(Connexion conn) {
+	public void ajouterVolPassager(Connexion conn) {
 		System.out.println("Entree le numero de Vol");
 		String noVol;
-		noVol = this.lec.lireChaine();
+		noVol = LectureClavier.lireChaine();
 		// Entree La date du Vol
 		System.out.println("Entree la Date du Vol");
 		TIMESTAMP dt;
-		dt = new TIMESTAMP(this.lec.lireChaine());
+		dt = new TIMESTAMP(LectureClavier.lireChaine());
 		// Entree le aeroOrigine
 		System.out.println("Entree l aeroport Origine du Vol");
 		String aeroOrigine;
-		aeroOrigine = this.lec.lireChaine();
+		aeroOrigine = LectureClavier.lireChaine();
 		// Entree le aeroDestination
 		System.out.println("Entree l aeroport Destination du Vol");
 		String aeroDestination;
-		aeroDestination = this.lec.lireChaine();
+		aeroDestination = LectureClavier.lireChaine();
 		// Entree le aeroDestination
 		int distance;
-		distance = this.lec.lireEntier("Entree la distance de Vol");
+		distance = LectureClavier.lireEntier("Entree la distance de Vol");
+		
+		int nbPlEco = LectureClavier.lireEntier("Entree le nombre minimun en classe Eco");
+		int nbPlAf= LectureClavier.lireEntier("Entree le nombre minimun en classe Affaire");
+		int nbPlPr = LectureClavier.lireEntier("Entree le nombre minimun en classe Premiere");
 		
 		Avion a;
 		
@@ -73,7 +96,7 @@ public class MenuAjouterVol {
 		ArrayList<Personne> ap = new ArrayList<Personne>();
 		for(int i=0; i<m.getNbPilotes();i++)
 		{
-			ap.add(pl.get(this.lec.lireEntier("entrer le pilote num "+i)));
+			ap.add(pl.get(LectureClavier.lireEntier("entrer le pilote num "+i)));
 		}
 		
 		ArrayList<Personne> ph;
@@ -82,21 +105,49 @@ public class MenuAjouterVol {
 		System.out.println("---------------------------------------");
 		AfficherHotesse(ph);
 		int nbHot;
-		nbHot = this.lec.lireEntier("Conbien d'Hotesse voulait vous?");
+		nbHot = LectureClavier.lireEntier("Conbien d'Hotesse voulait vous?");
 		System.out.println("veuiller choisir vos Hotesse");
 		System.out.println("---------------------------------------");
 		// choisir Hotesse
+		ArrayList<Personne> aHot = new ArrayList<Personne>();
 		for(int i=0; i<nbHot;i++)
 		{
-			ap.add(pl.get(this.lec.lireEntier("entrer l Hotesse num "+i)));
+			aHot.add(pl.get(LectureClavier.lireEntier("entrer l hotesse num "+i)));
 		}
 		//creation
 		
 		Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,false,a.getNoAvion());
-		ajouterPilotes();
-		ajouterHotesse()
-		creerPlace();
+		VolDAO volD = new VolDAO(conn.getConn());
+		volD.create(v);
+		
+		VolPassager volP=new VolPassager(nbPlEco, nbPlPr, nbPlAf, noVol, dt);
+		VolPassagerDAO volPD = new VolPassagerDAO(conn.getConn());
+		volPD.create(volP);
+		
+		creerPlaces(m,noVol,dt);
+		ajouterPilotes(ap,noVol,dt);
+		ajouterHotesse(aHot,noVol,dt);
+		
 	
+	}
+
+	private void creerPlaces(Modele m, Connexion conn) {
+		PlaceDAO PlD= new PlaceDAO(conn.getConn());
+		for(int i =0; i<m.getNbPlacesEco();i++)
+		{
+			PlD.create(new Place(idPlace, noPlace, classe, position, prix, noVol, dateDepart, noResa))
+		}
+		
+	}
+
+	private void ajouterHotesse(ArrayList<Personne> aHot) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void ajouterPilotes(ArrayList<Personne> ap) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void AfficherHotesse(ArrayList<Personne> ph) {

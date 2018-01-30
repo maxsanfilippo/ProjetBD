@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DonnePOJO.*;
+import oracle.sql.TIMESTAMP;
 
 public class PlaceDAO extends DAO<Place> {
 
@@ -18,8 +19,8 @@ public class PlaceDAO extends DAO<Place> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Place (" + obj.getIdPlace()+", " + obj.getNoPlace()+", "+obj.getClasse()
-			        +", "+obj.getPosition()+", "+obj.getPrix()+", "+obj.getNoVol()+", "+obj.getDateDepart()+", "+obj.getNoResa()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Place ( (" + obj.getIdPlace()+", " + obj.getNoPlace()+", "+obj.getClasse()
+			        +", "+obj.getPosition()+", "+obj.getPrix()+", "+obj.getNoVol()+", "+obj.getDateDepart()+", NULL)");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,7 +69,7 @@ public class PlaceDAO extends DAO<Place> {
 		      {
 		    	  Classe cl = convertInClasse(result.getString("classe"));
 		    	  Position p = convertInPosition(result.getString("position"));
-		    	  Ht = new Place(result.getInt("idPlace"),result.getString("noPlace"),cl,p,result.getInt("prix"),result.getString("noVol"),result.getDate("dateDepart"),result.getInt("noResa"));
+		    	  Ht = new Place(result.getInt("idPlace"),result.getString("noPlace"),cl,p,result.getInt("prix"),result.getString("noVol"),new TIMESTAMP(result.getDate("dateDepart")),result.getInt("noResa"));
 		      }
 		} catch (SQLException e) {
 		      e.printStackTrace();

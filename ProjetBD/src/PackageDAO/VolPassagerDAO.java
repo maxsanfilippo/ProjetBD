@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import DonnePOJO.Vol;
 import DonnePOJO.VolPassager;
+import oracle.sql.TIMESTAMP;
 
 public class VolPassagerDAO extends DAO<VolPassager> {
 
@@ -68,7 +69,7 @@ public class VolPassagerDAO extends DAO<VolPassager> {
 		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM VolPassager WHERE noVol = " + novol+" AND dateDepart = " + dt);
 		      if(result.first())
 
-		          vol = new VolPassager(result.getInt("placesMinEco"),result.getInt("placesMinPremiere"),result.getInt("placesMinAffaire"),result.getString("noVol"),result.getDate("dateDepart"));         
+		          vol = new VolPassager(result.getInt("placesMinEco"),result.getInt("placesMinPremiere"),result.getInt("placesMinAffaire"),result.getString("noVol"),new TIMESTAMP(result.getDate("dateDepart")));         
 		          
 		    } catch (SQLException e) {
 

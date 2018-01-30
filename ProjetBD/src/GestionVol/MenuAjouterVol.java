@@ -4,19 +4,25 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.util.ArrayList;
 
+import DonnePOJO.Assure;
 import DonnePOJO.Avion;
+import DonnePOJO.Classe;
 import DonnePOJO.Modele;
 import DonnePOJO.Personne;
 import DonnePOJO.Pilote;
 import DonnePOJO.Place;
+import DonnePOJO.Position;
 import DonnePOJO.Vol;
+import DonnePOJO.VolFret;
 import DonnePOJO.VolPassager;
 import Outils.LectureClavier;
+import PackageDAO.AssureDAO;
 import PackageDAO.AvionDAO;
 import PackageDAO.Connexion;
 import PackageDAO.ModeleDAO;
 import PackageDAO.PlaceDAO;
 import PackageDAO.VolDAO;
+import PackageDAO.VolFretDAO;
 import PackageDAO.VolPassagerDAO;
 import oracle.sql.TIMESTAMP;
 
@@ -42,6 +48,79 @@ public class MenuAjouterVol {
 			ajouterVolPassager(conn);
 		}
 	}
+
+	private void ajouterVolFret(Connexion conn) {
+		System.out.println("Entree le numero de Vol");
+		String noVol;
+		noVol = LectureClavier.lireChaine();
+		// Entree La date du Vol
+		System.out.println("Entree la Date du Vol");
+		TIMESTAMP dt;
+		dt = new TIMESTAMP(LectureClavier.lireChaine());
+		// Entree le aeroOrigine
+		System.out.println("Entree l aeroport Origine du Vol");
+		String aeroOrigine;
+		aeroOrigine = LectureClavier.lireChaine();
+		// Entree le aeroDestination
+		System.out.println("Entree l aeroport Destination du Vol");
+		String aeroDestination;
+		aeroDestination = LectureClavier.lireChaine();
+		// Entree le aeroDestination
+		int distance;
+		distance = LectureClavier.lireEntier("Entree la distance de Vol");
+		
+		int volume = LectureClavier.lireEntier("Entree le nombre minimun de Volume");
+		int Poids= LectureClavier.lireEntier("Entree le nombre minimun de Poids");
+		
+		Avion a;
+		
+		ArrayList<Avion> Av;
+		Av = recupAvionDispo(conn, dt);
+		System.out.println("liste des Avions Disponible");
+		System.out.println("---------------------------------------");
+		AfficherAvion(Av);
+		System.out.println("---------------------------------------");
+		//choisir AVION
+		int indAvion=  LectureClavier.lireEntier("veuiller choisir votre avion");
+		a = Av.get(indAvion);
+		Modele m;
+		ModeleDAO mD = new ModeleDAO(conn.getConn());
+		Object[] t = new Object[1];
+		t[0]=a.getNoModele();
+		m = mD.find(t);
+		
+		ArrayList<Personne> pl;
+		pl = recupPiloteDispo(conn, dt,a);
+		System.out.println("liste des Pilotes Disponible");
+		System.out.println("---------------------------------------");
+		AfficherPilotes(pl);
+		System.out.println("---------------------------------------");
+		System.out.println("veuiller choisir vos "+m.getNbPilotes()+" Pilotes");
+		System.out.println("---------------------------------------");
+		// choisir Pilote
+		ArrayList<Personne> ap = new ArrayList<Personne>();
+		for(int i=0; i<m.getNbPilotes();i++)
+		{
+			ap.add(pl.get(LectureClavier.lireEntier("entrer le pilote num "+i)));
+		}
+		
+		
+		//creation
+		
+		Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,false,a.getNoAvion());
+		VolDAO volD = new VolDAO(conn.getConn());
+		volD.create(v);
+		
+		VolFret volF=new VolFret(volume, Poids, 15, noVol, dt);
+		VolFretDAO volFD = new VolFretDAO(conn.getConn());
+		volFD.create(volF);
+		
+		ajouterPilotes(ap,noVol,dt,conn);
+		System.out.println("Le Vol a était creer");
+		
+	
+	}
+	
 
 	public void ajouterVolPassager(Connexion conn) {
 		System.out.println("Entree le numero de Vol");
@@ -74,10 +153,9 @@ public class MenuAjouterVol {
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
 		AfficherAvion(Av);
-		System.out.println("veuiller choisir votre avion");
 		System.out.println("---------------------------------------");
 		//choisir AVION
-		int indAvion;
+		int indAvion=  LectureClavier.lireEntier("veuiller choisir votre avion");
 		a = Av.get(indAvion);
 		Modele m;
 		ModeleDAO mD = new ModeleDAO(conn.getConn());
@@ -90,6 +168,7 @@ public class MenuAjouterVol {
 		System.out.println("liste des Pilotes Disponible");
 		System.out.println("---------------------------------------");
 		AfficherPilotes(pl);
+		System.out.println("---------------------------------------");
 		System.out.println("veuiller choisir vos "+m.getNbPilotes()+" Pilotes");
 		System.out.println("---------------------------------------");
 		// choisir Pilote
@@ -104,6 +183,7 @@ public class MenuAjouterVol {
 		System.out.println("liste des Hotesse Disponible");
 		System.out.println("---------------------------------------");
 		AfficherHotesse(ph);
+		System.out.println("---------------------------------------");
 		int nbHot;
 		nbHot = LectureClavier.lireEntier("Conbien d'Hotesse voulait vous?");
 		System.out.println("veuiller choisir vos Hotesse");
@@ -124,30 +204,67 @@ public class MenuAjouterVol {
 		VolPassagerDAO volPD = new VolPassagerDAO(conn.getConn());
 		volPD.create(volP);
 		
-		creerPlaces(m,noVol,dt);
-		ajouterPilotes(ap,noVol,dt);
-		ajouterHotesse(aHot,noVol,dt);
-		
+		creerPlaces(m,noVol,dt,conn);
+		ajouterPilotes(ap,noVol,dt,conn);
+		ajouterHotesse(aHot,noVol,dt,conn);
+		System.out.println("Le Vol a était creer");
 	
 	}
 
-	private void creerPlaces(Modele m, Connexion conn) {
+	private void creerPlaces(Modele m,String noVol,TIMESTAMP dt, Connexion conn) {
 		PlaceDAO PlD= new PlaceDAO(conn.getConn());
 		for(int i =0; i<m.getNbPlacesEco();i++)
 		{
-			PlD.create(new Place(idPlace, noPlace, classe, position, prix, noVol, dateDepart, noResa))
+			Position pos;
+			pos = determinePosition(i);
+			PlD.create(new Place(0, "E"+i, Classe.Eco, pos, 125, noVol, dt, 0));
+		}
+		for(int i =0; i<m.getNbPlacesAffaire();i++)
+		{
+			Position pos;
+			pos = determinePosition(i);
+			PlD.create(new Place(0, "A"+i, Classe.Affaire, pos, 135, noVol, dt, 0));
+		}
+		for(int i =0; i<m.getNbPlacesPremiere();i++)
+		{
+			Position pos;
+			pos = determinePosition(i);
+			PlD.create(new Place(0, "P"+i, Classe.Premiere, pos, 150, noVol, dt, 0));
 		}
 		
 	}
 
-	private void ajouterHotesse(ArrayList<Personne> aHot) {
-		// TODO Auto-generated method stub
-		
+	public Position determinePosition(int i) {
+		Position pos;
+		if(i%3==0)
+		{
+			pos= Position.Centre;
+		}
+		if(i%3==1)
+		{
+			pos= Position.Couloir;
+		}
+		else
+		{
+			pos =Position.Hublot;
+		}
+		return pos;
 	}
 
-	private void ajouterPilotes(ArrayList<Personne> ap) {
-		// TODO Auto-generated method stub
-		
+	private void ajouterHotesse(ArrayList<Personne> aHot,String noVol,TIMESTAMP dt, Connexion conn) {
+		AssureDAO assureD = new AssureDAO(conn.getConn());
+		for(Personne p:aHot)
+		{	
+			assureD.create(new Assure(p.getIdPerso(), noVol, dt));
+		}
+	}
+
+	private void ajouterPilotes(ArrayList<Personne> ap,String noVol,TIMESTAMP dt,Connexion conn) {
+		AssureDAO assureD = new AssureDAO(conn.getConn());
+		for(Personne p:ap)
+		{	
+			assureD.create(new Assure(p.getIdPerso(), noVol, dt));
+		}	
 	}
 
 	private void AfficherHotesse(ArrayList<Personne> ph) {

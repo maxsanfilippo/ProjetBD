@@ -19,8 +19,8 @@ public class PlaceDAO extends DAO<Place> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Place ( (" + obj.getIdPlace()+", " + obj.getNoPlace()+", "+obj.getClasse()
-			        +", "+obj.getPosition()+", "+obj.getPrix()+", "+obj.getNoVol()+", "+obj.getDateDepart()+", NULL)");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Place ( (noPlace,classe,position,prix,noVol,datedepart) values" + obj.getIdPlace()+", " + obj.getNoPlace()+", "+obj.getClasse()
+			        +", "+obj.getPosition()+", "+obj.getPrix()+", "+obj.getNoVol()+", "+obj.getDateDepart()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -35,14 +35,15 @@ public class MenuVol {
 		{
 		case "1" :
 			MenuConsulterVol mC = new MenuConsulterVol();
-			mC.afficherVols(this.conn);
+			mC.afficherVols(this.conn);break;
 		case "2" :
 			MenuAjouterVol mA = new MenuAjouterVol();
-			mA.afficherMenuAjout(this.conn);
+			mA.afficherMenuAjout(this.conn);break;
 		case "3" :
 			MenuModifierVol mM = new MenuModifierVol();
+			mM.afficherMenuModifier(conn);break;
 		case "4" :
-			MenuSupprVol mS = new MenuSupprVol();
+			MenuSupprVol mS = new MenuSupprVol();break;
 		}
 		
 	}

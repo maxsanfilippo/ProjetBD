@@ -1,10 +1,10 @@
 package DonnePOJO;
 
-import java.sql.Date;
+import oracle.sql.TIMESTAMP;
 
 public class Vol {
 	private String noVol;
-	private Date dateDepart;
+	private TIMESTAMP dateDepart;
 	private String aeroOrigine;
 	private String aeroDestination;
 	private int duree;
@@ -12,7 +12,7 @@ public class Vol {
 	private boolean arrive;
 	private int noAvion;
 	
-	public Vol(String noVol, Date dateDepart, String aeroOrigine, String aeroDestination,
+	public Vol(String noVol, TIMESTAMP dateDepart, String aeroOrigine, String aeroDestination,
 			int distance, boolean arrive, int noAvion) {
 		this.noVol = noVol;
 		this.dateDepart = dateDepart;
@@ -23,7 +23,7 @@ public class Vol {
 		this.noAvion = noAvion;
 	}
 	
-	public Vol(String noVol, Date dateDepart, String aeroOrigine, String aeroDestination, int duree,
+	public Vol(String noVol, TIMESTAMP dateDepart, String aeroOrigine, String aeroDestination, int duree,
 			int distance, boolean arrive, int noAvion) {
 		this.noVol = noVol;
 		this.dateDepart = dateDepart;
@@ -43,11 +43,11 @@ public class Vol {
 		this.noVol = noVol;
 	}
 
-	public Date getDateDepart() {
+	public TIMESTAMP getDateDepart() {
 		return dateDepart;
 	}
 
-	public void setDateDepart(Date dateDepart) {
+	public void setDateDepart(TIMESTAMP dateDepart) {
 		this.dateDepart = dateDepart;
 	}
 

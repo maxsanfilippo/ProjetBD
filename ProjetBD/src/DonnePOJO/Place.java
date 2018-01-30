@@ -1,6 +1,6 @@
 package DonnePOJO;
 
-import java.sql.Date;
+import oracle.sql.TIMESTAMP;
 
 public class Place {
 
@@ -10,17 +10,17 @@ public class Place {
 	private Position position;
 	private int prix;
 	private String noVol;
-	private Date DateDepart;
+	private TIMESTAMP dateDepart;
 	private int noResa;
 	
-	public Place(int idPlace, String noPlace, Classe classe, Position position, int prix, String noVol, Date dateDepart, int noResa) {
+	public Place(int idPlace, String noPlace, Classe classe, Position position, int prix, String noVol, TIMESTAMP dateDepart, int noResa) {
 		this.idPlace = idPlace;
 		this.noPlace = noPlace;
 		this.classe = classe;
 		this.position = position;
 		this.prix = prix;
 		this.noVol = noVol;
-		DateDepart = dateDepart;
+		this.dateDepart = dateDepart;
 		this.noResa = noResa;
 	}
 
@@ -72,12 +72,12 @@ public class Place {
 		this.noVol = noVol;
 	}
 
-	public Date getDateDepart() {
-		return DateDepart;
+	public TIMESTAMP getDateDepart() {
+		return dateDepart;
 	}
 
-	public void setDateDepart(Date dateDepart) {
-		DateDepart = dateDepart;
+	public void setDateDepart(TIMESTAMP dateDepart) {
+		this.dateDepart = dateDepart;
 	}
 
 	public int getNoResa() {
@@ -91,7 +91,7 @@ public class Place {
 	@Override
 	public String toString() {
 		return "Place [noPlace=" + noPlace + ", classe=" + classe + ", position=" + position + ", prix=" + prix
-				+ ", noVol=" + noVol + ", DateDepart=" + DateDepart + ", noResa=" + noResa + "]";
+				+ ", noVol=" + noVol + ", DateDepart=" + dateDepart + ", noResa=" + noResa + "]";
 	}
 	
 	

@@ -1,15 +1,15 @@
 package DonnePOJO;
 
-import java.sql.Date;
+import oracle.sql.TIMESTAMP;
 
 public class Reservation {
 
 	private int noResa;
-	private Date dateResa;
+	private TIMESTAMP dateResa;
 	private int prixTotal;
 	private int idPerso;
 	
-	public Reservation(int noResa, Date dateResa, int prixTotal, int idPerso) {
+	public Reservation(int noResa, TIMESTAMP dateResa, int prixTotal, int idPerso) {
 		this.noResa = noResa;
 		this.dateResa = dateResa;
 		this.prixTotal = prixTotal;
@@ -24,11 +24,11 @@ public class Reservation {
 		this.noResa = noResa;
 	}
 
-	public Date getDateResa() {
+	public TIMESTAMP getDateResa() {
 		return dateResa;
 	}
 
-	public void setDateResa(Date dateResa) {
+	public void setDateResa(TIMESTAMP dateResa) {
 		this.dateResa = dateResa;
 	}
 

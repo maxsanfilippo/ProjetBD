@@ -43,7 +43,7 @@ public class MenuModifVolAeroOrigine {
 	}
 
 	private void modifierVol(Connexion conn, String aeroportOrigine, int noAvion, Vol vol) {
-		conn.connect();
+
 		VolDAO volDAO = new VolDAO(conn.getConn());
 		vol.setAeroOrigine(aeroportOrigine);
 		vol.setNoAvion(noAvion);

@@ -21,7 +21,8 @@ public class MenuChoixModificationVol {
 		switch(choix) {
 			case 1: MenuModifVolAeroOrigine menuAeroOrigine = new MenuModifVolAeroOrigine();
 			menuAeroOrigine.mainModifVolAeroOrigine(conn, vol);break;
-			//case 2: MenuModifVolAeroDestination menuAeroDestination = new MenuModifVolAeroDestination();break;
+			case 2: MenuModifVolAeroDestination menuAeroDestination = new MenuModifVolAeroDestination();
+			menuAeroDestination.mainModifVolAeroDestination(conn, vol);break;
 			/*case 3: MenuModifVolDistance menuDistance = new MenuModifVolDistance();break;
 			case 4: MenuModifVolArrivee menuArrivee = new MenuModifVolArrivee();break;
 			case 5: MenuModifVolAvion menuAvion = new MenuModifVolAvion();break;

@@ -34,7 +34,7 @@ public class VolFretDAO extends DAO<VolFret> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM VolFret WHERE noVol = " + obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM VolFret WHERE noVol = '" + obj.getNoVol()+"' AND datedepart = TIMESTAMP '"+obj.getDateDepart()+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,7 +49,7 @@ public class VolFretDAO extends DAO<VolFret> {
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE VolFret SET volumeMin = " + obj.getVolumeMin()+", poidsMin = "+obj.getPoidsMin()
 			        +", prixMetreCube = "+obj.getPrixMetreCube()
-			        +" WHERE noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+			        +" WHERE noVol = '"+obj.getNoVol()+"' AND datedepart = TIMESTAMP '"+obj.getDateDepart()+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class VolFretDAO extends DAO<VolFret> {
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM VolFret WHERE noVol = " + novol+" AND datedepart = " + dt);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM VolFret WHERE noVol = '" + novol+"' AND datedepart = TIMESTAMP '" + dt+"'");
 		      if(result.first())
 
 		          vol = new VolFret(result.getInt("volumeMin"),result.getInt("poidsMin"),result.getFloat("prixMetreCube"),result.getString("noVol"),new TIMESTAMP(result.getDate("dateDepart")));         

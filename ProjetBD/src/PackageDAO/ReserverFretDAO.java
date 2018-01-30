@@ -21,7 +21,7 @@ public class ReserverFretDAO extends DAO<ReserverFret> {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO ReserverFret (volumeResa, poidsResa, noResa, noVol, datedepart) VALUES (" + obj.getVolumeResa()+", " + obj.getPoidsResa()+", "+obj.getNoResa()
-			        +", "+obj.getNoVol()+", "+obj.getDateDepart()+")");
+			        +", '"+obj.getNoVol()+"', TIMESTAMP '"+obj.getDateDepart()+"')");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,7 +34,7 @@ public class ReserverFretDAO extends DAO<ReserverFret> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM ReserverFret WHERE noResa = " + obj.getNoResa()+" AND noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM ReserverFret WHERE noResa = " + obj.getNoResa()+" AND noVol = '"+obj.getNoVol()+"' AND datedepart = TIMESTAMP '"+obj.getDateDepart()+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class ReserverFretDAO extends DAO<ReserverFret> {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
 			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE ReserverFret SET volumeResa = " + obj.getVolumeResa()+", poidsResa = "+obj.getPoidsResa()
-			        +" WHERE noResa = "+obj.getNoResa()+" AND noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+			        +" WHERE noResa = "+obj.getNoResa()+" AND noVol = '"+obj.getNoVol()+"' AND datedepart = TIMESTAMP '"+obj.getDateDepart()+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class ReserverFretDAO extends DAO<ReserverFret> {
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM ReserverFret WHERE noResa = " + resa + " AND noVol = "+ NVol+" AND dateDepart = "+dt);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM ReserverFret WHERE noResa = " + resa + " AND noVol = '"+ NVol+"' AND dateDepart = TIMESTAMP '"+dt+"'");
 		      if(result.first())
 		      {
 		    	  rF = new ReserverFret(result.getInt("VolumeResa"),result.getInt("poidsResa"),result.getInt("noResa"),result.getString("noVol"),new TIMESTAMP(result.getDate("dateDepart")));

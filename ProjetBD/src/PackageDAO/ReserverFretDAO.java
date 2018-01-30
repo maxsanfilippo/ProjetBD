@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DonnePOJO.*;
+import oracle.sql.TIMESTAMP;
 
 public class ReserverFretDAO extends DAO<ReserverFret> {
 
@@ -67,7 +68,7 @@ public class ReserverFretDAO extends DAO<ReserverFret> {
 		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM ReserverFret WHERE noResa = " + resa + " AND noVol = "+ NVol+" AND dateDepart = "+dt);
 		      if(result.first())
 		      {
-		    	  rF = new ReserverFret(result.getInt("VolumeResa"),result.getInt("poidsResa"),result.getInt("noResa"),result.getString("noVol"),result.getDate("dateDepart"));
+		    	  rF = new ReserverFret(result.getInt("VolumeResa"),result.getInt("poidsResa"),result.getInt("noResa"),result.getString("noVol"),new TIMESTAMP(result.getDate("dateDepart")));
 		      }
 		} catch (SQLException e) {
 

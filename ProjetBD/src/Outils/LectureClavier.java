@@ -3,6 +3,7 @@ import java.io.*;
 
 
 /**
+ *	Classe Récupérer d'un Tp de BD
  *
  *   Cette classe a pour role de faciliter la lecture de donnees
  *   a partir du clavier. <BR>

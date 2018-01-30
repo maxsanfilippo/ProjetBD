@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DonnePOJO.*;
+import oracle.sql.TIMESTAMP;
 
 public class ReservationDAO extends DAO<Reservation> {
 
@@ -65,7 +66,7 @@ public class ReservationDAO extends DAO<Reservation> {
 		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Reservation WHERE noResa = " + noRes);
 		      if(result.first())
 		      {
-		    	  res = new Reservation(result.getInt("noResa"),result.getDate("dateResa"),result.getInt("prixTotal"),result.getInt("idPerso"));
+		    	  res = new Reservation(result.getInt("noResa"),new TIMESTAMP(result.getDate("dateResa")),result.getInt("prixTotal"),result.getInt("idPerso"));
 		      }
 		} catch (SQLException e) {
 

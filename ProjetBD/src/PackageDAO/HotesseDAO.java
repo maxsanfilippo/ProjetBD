@@ -18,7 +18,7 @@ public class HotesseDAO extends DAO<Hotesse> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Hotesse (secondeLangue, idPerso) VALUES (" + obj.getSecondeLangue()+", " + obj.getIdPerso()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Hotesse (secondeLangue, idPerso) VALUES ('" + obj.getSecondeLangue()+"', " + obj.getIdPerso()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,8 +44,8 @@ public class HotesseDAO extends DAO<Hotesse> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Hotesse SET secondeLangue = " + obj.getSecondeLangue()
-			        +" WHERE idPerso = "+obj.getIdPerso());
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Hotesse SET secondeLangue = '" + obj.getSecondeLangue()
+			        +"' WHERE idPerso = "+obj.getIdPerso());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

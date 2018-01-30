@@ -14,6 +14,5 @@ public class MenuModifVolAeroOrigine {
 
 	private void afficherAvionsDisponibles(Connexion conn) {
 		
-		
 	}
 }

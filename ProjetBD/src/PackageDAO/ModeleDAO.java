@@ -18,7 +18,7 @@ public class ModeleDAO extends DAO<Modele> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Modele (" + obj.getNoModele()+", " + obj.getNbPilotes()+", "+obj.getRayon()
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Modele (noModele, nbPilotes, rayon, volumeMax, poidsMax, nbPlaces, nbPlacesEco, nbPlacesPremiere, nbPlacesAffaire) VALUES (" + obj.getNoModele()+", " + obj.getNbPilotes()+", "+obj.getRayon()
 			        +", "+obj.getVolumeMax()+", "+obj.getPoidsMax()+", "+obj.getNbPlaces()+", "+obj.getNbPlacesEco()
 			        +", "+obj.getNbPlacesPremiere()+", "+obj.getNbPlacesAffaire()+")");
 		} catch (SQLException e) {

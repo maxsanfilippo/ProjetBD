@@ -18,7 +18,7 @@ public class PersonneDAO extends DAO<Personne> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Personne (" + obj.getIdPerso()+", " + obj.getNom()+", "+obj.getPrenom()
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Personne (idPerso, nom, prenom, nbHeuresVol) VALUES (" + obj.getIdPerso()+", " + obj.getNom()+", "+obj.getPrenom()
 			        +", "+obj.getNbHeuresVol()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

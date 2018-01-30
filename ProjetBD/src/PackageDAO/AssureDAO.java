@@ -20,7 +20,7 @@ public class AssureDAO extends DAO<Assure> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO assure (" + obj.getIdPerso()+", " + obj.getNoVol()+", "+obj.getDateDepart()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO assure (idPerso, noVol, datedepart) VALUES (" + obj.getIdPerso()+", " + obj.getNoVol()+", "+obj.getDateDepart()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

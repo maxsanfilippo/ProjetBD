@@ -20,7 +20,7 @@ public class ReserverFretDAO extends DAO<ReserverFret> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO ReserverFret (" + obj.getVolumeResa()+", " + obj.getPoidsResa()+", "+obj.getNoResa()
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO ReserverFret (volumeResa, poidsResa, noResa, noVol, datedepart) VALUES (" + obj.getVolumeResa()+", " + obj.getPoidsResa()+", "+obj.getNoResa()
 			        +", "+obj.getNoVol()+", "+obj.getDateDepart()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

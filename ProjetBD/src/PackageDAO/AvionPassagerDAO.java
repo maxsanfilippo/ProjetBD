@@ -18,7 +18,7 @@ public class AvionPassagerDAO extends DAO<AvionPassager> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO AvionPassager (" + obj.getNbPlaces()+", " + obj.getNbPlacesEco()+", "+obj.getNbPlacesPremiere()
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO AvionPassager (nbPlaces, nbPlacesEco, nbPlacesPremiere, nbPlacesAffaire, noAvion) VALUES (" + obj.getNbPlaces()+", " + obj.getNbPlacesEco()+", "+obj.getNbPlacesPremiere()
 			        +", "+obj.getNbPlacesAffaire()+", "+obj.getNoAvion()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

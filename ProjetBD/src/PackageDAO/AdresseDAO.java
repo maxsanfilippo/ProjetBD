@@ -18,7 +18,7 @@ public class AdresseDAO extends DAO<Adresse> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Adresse (" + obj.getIdAdresse()+", " + obj.getNoAdresse()+", "+obj.getRue()
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Adresse (idAdresse, noAdresse, rue, cpp, ville, pays, idPerso) VALUES (" + obj.getIdAdresse()+", " + obj.getNoAdresse()+", "+obj.getRue()
 			        +", "+obj.getCpp()+", "+obj.getVille()+", "+obj.getPays()+", "+obj.getIdPerso()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

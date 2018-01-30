@@ -18,7 +18,7 @@ public class ClientDAO extends DAO<Client> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Client (" + obj.getIdPerso()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Client (idPerso) VALUES (" + obj.getIdPerso()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

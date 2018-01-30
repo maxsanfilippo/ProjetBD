@@ -18,7 +18,7 @@ public class PiloteDAO extends DAO<Pilote> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Pilote (" + obj.getIdPerso()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Pilote (idPerso) VALUES (" + obj.getIdPerso()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

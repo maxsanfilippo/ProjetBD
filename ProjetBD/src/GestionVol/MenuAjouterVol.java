@@ -31,12 +31,22 @@ public class MenuAjouterVol {
 	
 	public void AfficherMenu(Connexion conn)
 	{
+		try {
+			conn.getConn().setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		conn.connect();
+		
+		
 		System.out.println("Veuillez saisir votre choix de type de VOl");
 		System.out.println("------------------------------------------------------------------------------");
 		System.out.println("| 1 . Vol Fret ## non terminé");
 		System.out.println("------------------------------------------------------------------------------");
 		System.out.println("| 2 . Vol Passager ## non terminé");
 		System.out.println("------------------------------------------------------------------------------");
+		
 		
 		String choixType;
 		choixType = LectureClavier.lireChaine();
@@ -46,6 +56,14 @@ public class MenuAjouterVol {
 			ajouterVolFret(conn);
 		case "2":
 			ajouterVolPassager(conn);
+		}
+		
+		try {
+			conn.getConn().commit();
+			conn.disconnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -75,7 +93,7 @@ public class MenuAjouterVol {
 		Avion a;
 		
 		ArrayList<Avion> Av;
-		Av = recupAvionDispo(conn, dt);
+		Av = recupAvionFretDispo(conn, dt, noVol, aeroOrigine);
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
 		AfficherAvion(Av);
@@ -149,7 +167,7 @@ public class MenuAjouterVol {
 		Avion a;
 		
 		ArrayList<Avion> Av;
-		Av = recupAvionDispo(conn, dt);
+		Av = recupAvionPassagerDispo(conn, dt, noVol, aeroOrigine);
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
 		AfficherAvion(Av);
@@ -283,7 +301,7 @@ public class MenuAjouterVol {
 		ResultSet resultat;
 		ArrayList<Personne> result = new ArrayList<Personne>();
 		
-		conn.connect();
+
 		
 		try {
 			requete = conn.getConn().createStatement();
@@ -304,7 +322,6 @@ public class MenuAjouterVol {
 		ResultSet resultat;
 		ArrayList<Personne> result = new ArrayList<Personne>();
 		
-		conn.connect();
 		
 		try {
 			requete = conn.getConn().createStatement();
@@ -344,16 +361,41 @@ public class MenuAjouterVol {
 		
 	}
 
-	public ArrayList<Avion> recupAvionDispo(Connexion conn, TIMESTAMP dt) {
+	public ArrayList<Avion> recupAvionFretDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine) {
 		Statement requete;
 		ResultSet resultat;
 		ArrayList<Avion> result = new ArrayList<Avion>();
 		
-		conn.connect();
 		
 		try {
 			requete = conn.getConn().createStatement();
-			resultat = requete.executeQuery("SELECT * FROM AVION WHERE noAvion NOT IN (select noAvion From Vol where Vol.arrive=false AND datedepart > "+dt+")");
+			resultat = requete.executeQuery("SELECT * FROM AVIONFRET WHERE (noAvion NOT IN "
+					+ "(select noAvion From Vol where Vol.arrive=false AND datedepart > "+dt+") AND "
+							+ "noAvion IN (select max(datedepart), noAvion From Vol where Vol.arrive=true"
+							+ " AND aeroDestination = " + aeroOrigine +")) OR noAvion IN (select noAvion from Vol)");
+			while(resultat.next())
+			{
+				result.add(new Avion(resultat.getInt("noAvion"), resultat.getInt("rayon"), resultat.getString("noModele")));
+			}	
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public ArrayList<Avion> recupAvionPassagerDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine) {
+		Statement requete;
+		ResultSet resultat;
+		ArrayList<Avion> result = new ArrayList<Avion>();
+		
+		
+		try {
+			requete = conn.getConn().createStatement();
+			resultat = requete.executeQuery("SELECT * FROM AVIONPASSAGER WHERE (noAvion NOT IN "
+					+ "(select noAvion From Vol where Vol.arrive=false AND datedepart > "+dt+") AND "
+					+ "noAvion IN (select max(datedepart), noAvion From Vol where Vol.arrive=true"
+					+ " AND aeroDestination = " + aeroOrigine +")) OR noAvion IN (select noAvion from Vol)");
 			while(resultat.next())
 			{
 				result.add(new Avion(resultat.getInt("noAvion"), resultat.getInt("rayon"), resultat.getString("noModele")));

@@ -31,12 +31,15 @@ public class MenuAjouterVol {
 	
 	public void AfficherMenu(Connexion conn)
 	{
+		conn.connect();
+		
 		System.out.println("Veuillez saisir votre choix de type de VOl");
 		System.out.println("------------------------------------------------------------------------------");
 		System.out.println("| 1 . Vol Fret ## non terminé");
 		System.out.println("------------------------------------------------------------------------------");
 		System.out.println("| 2 . Vol Passager ## non terminé");
 		System.out.println("------------------------------------------------------------------------------");
+		
 		
 		String choixType;
 		choixType = LectureClavier.lireChaine();
@@ -46,6 +49,13 @@ public class MenuAjouterVol {
 			ajouterVolFret(conn);
 		case "2":
 			ajouterVolPassager(conn);
+		}
+		
+		try {
+			conn.disconnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -283,7 +293,7 @@ public class MenuAjouterVol {
 		ResultSet resultat;
 		ArrayList<Personne> result = new ArrayList<Personne>();
 		
-		conn.connect();
+
 		
 		try {
 			requete = conn.getConn().createStatement();
@@ -304,7 +314,6 @@ public class MenuAjouterVol {
 		ResultSet resultat;
 		ArrayList<Personne> result = new ArrayList<Personne>();
 		
-		conn.connect();
 		
 		try {
 			requete = conn.getConn().createStatement();
@@ -349,7 +358,6 @@ public class MenuAjouterVol {
 		ResultSet resultat;
 		ArrayList<Avion> result = new ArrayList<Avion>();
 		
-		conn.connect();
 		
 		try {
 			requete = conn.getConn().createStatement();
@@ -373,7 +381,6 @@ public class MenuAjouterVol {
 		ResultSet resultat;
 		ArrayList<Avion> result = new ArrayList<Avion>();
 		
-		conn.connect();
 		
 		try {
 			requete = conn.getConn().createStatement();

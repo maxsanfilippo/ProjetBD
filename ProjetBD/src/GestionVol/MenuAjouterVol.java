@@ -75,7 +75,7 @@ public class MenuAjouterVol {
 		Avion a;
 		
 		ArrayList<Avion> Av;
-		Av = recupAvionDispo(conn, dt);
+		Av = recupAvionFretDispo(conn, dt, noVol, aeroOrigine);
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
 		AfficherAvion(Av);
@@ -149,7 +149,7 @@ public class MenuAjouterVol {
 		Avion a;
 		
 		ArrayList<Avion> Av;
-		Av = recupAvionDispo(conn, dt);
+		Av = recupAvionPassagerDispo(conn, dt, noVol, aeroOrigine);
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
 		AfficherAvion(Av);
@@ -344,7 +344,7 @@ public class MenuAjouterVol {
 		
 	}
 
-	public ArrayList<Avion> recupAvionDispo(Connexion conn, TIMESTAMP dt) {
+	public ArrayList<Avion> recupAvionFretDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine) {
 		Statement requete;
 		ResultSet resultat;
 		ArrayList<Avion> result = new ArrayList<Avion>();
@@ -353,7 +353,34 @@ public class MenuAjouterVol {
 		
 		try {
 			requete = conn.getConn().createStatement();
-			resultat = requete.executeQuery("SELECT * FROM AVION WHERE noAvion NOT IN (select noAvion From Vol where Vol.arrive=false AND datedepart > "+dt+")");
+			resultat = requete.executeQuery("SELECT * FROM AVIONFRET WHERE (noAvion NOT IN "
+					+ "(select noAvion From Vol where Vol.arrive=false AND datedepart > "+dt+") AND "
+							+ "noAvion IN (select max(datedepart), noAvion From Vol where Vol.arrive=true"
+							+ " AND aeroDestination = " + aeroOrigine +")) OR noAvion IN (select noAvion from Vol)");
+			while(resultat.next())
+			{
+				result.add(new Avion(resultat.getInt("noAvion"), resultat.getInt("rayon"), resultat.getString("noModele")));
+			}	
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public ArrayList<Avion> recupAvionPassagerDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine) {
+		Statement requete;
+		ResultSet resultat;
+		ArrayList<Avion> result = new ArrayList<Avion>();
+		
+		conn.connect();
+		
+		try {
+			requete = conn.getConn().createStatement();
+			resultat = requete.executeQuery("SELECT * FROM AVIONPASSAGER WHERE (noAvion NOT IN "
+					+ "(select noAvion From Vol where Vol.arrive=false AND datedepart > "+dt+") AND "
+					+ "noAvion IN (select max(datedepart), noAvion From Vol where Vol.arrive=true"
+					+ " AND aeroDestination = " + aeroOrigine +")) OR noAvion IN (select noAvion from Vol)");
 			while(resultat.next())
 			{
 				result.add(new Avion(resultat.getInt("noAvion"), resultat.getInt("rayon"), resultat.getString("noModele")));

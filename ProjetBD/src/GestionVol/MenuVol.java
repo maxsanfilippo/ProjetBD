@@ -1,14 +1,17 @@
 package GestionVol;
 
+import Outils.LectureClavier;
 import PackageDAO.*;
 
 public class MenuVol {
 	
 	private Connexion conn;
+	private LectureClavier lecture;
 	
 	public MenuVol()
 	{
 		this.conn = new Connexion();
+		this.lecture = new LectureClavier();
 	}
 
 	public void afficherMenu() {
@@ -24,8 +27,9 @@ public class MenuVol {
 		System.out.println("------------------------------------------------------------------------------");
 
 		// Saisir choix | String choix = ....
-		String choix;
 		
+		String choix;
+		choix = this.lecture.lireChaine();
 		this.choixFonct(choix);
 
 	}

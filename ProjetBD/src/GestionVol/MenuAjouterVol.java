@@ -96,7 +96,7 @@ public class MenuAjouterVol {
 		ajouterPilotes();
 		ajouterHotesse()
 		creerPlace();
-		
+	
 	}
 
 	private void AfficherHotesse(ArrayList<Personne> ph) {

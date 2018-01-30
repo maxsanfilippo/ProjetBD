@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import DonnePOJO.Vol;
+import Outils.LectureClavier;
 import PackageDAO.Connexion;
+import PackageDAO.VolDAO;
 import oracle.sql.TIMESTAMP;
 
 public class MenuModifierVol {
@@ -13,12 +15,16 @@ public class MenuModifierVol {
 	public void afficherMenuModifier(Connexion conn) {
 		System.out.println("Saisissez le numero de vol que vous souhaitez modifier");
 		// saisie numero vol
-		String noVol = null;
-		Vol v = recupVol(conn, noVol);
+		String noVol = LectureClavier.lireChaine();
+		
+		System.out.println("Saisissez la date du vol que vous souhaitez modifier");
+		// saisie date vol
+		TIMESTAMP dateVol = new TIMESTAMP(LectureClavier.lireChaine());
+		Vol v = recupVol(conn, noVol, dateVol);
 		afficherVol(v);
 		
 		MenuChoixModificationVol menuChoixModificationVol = new MenuChoixModificationVol();
-		menuChoixModificationVol.afficherChoixModificationVol(conn);
+		menuChoixModificationVol.afficherChoixModificationVol(conn, v);
 		
 	}
 
@@ -26,25 +32,15 @@ public class MenuModifierVol {
 		System.out.println(v.toString());
 	}
 
-	private Vol recupVol(Connexion conn, String noVol) {
-		Statement requete;
-		ResultSet resultat;
-		Vol result = null;
+	private Vol recupVol(Connexion conn, String noVol, TIMESTAMP date) {
+		Object[] tab = new Object[2];
+		tab[0] = noVol;
+		tab[1] = date;
 		
 		conn.connect();
 		
-		try {
-			requete = conn.getConn().createStatement();
-			resultat = requete.executeQuery("SELECT * FROM Vol WHERE noVol = "+noVol);
-			if(resultat.next())
-			{
-				result = new Vol(resultat.getString("noVol"),new TIMESTAMP(resultat.getString("datedepart")),resultat.getString("aeroOrigine"),resultat.getString("aeroDestination"),
-						resultat.getInt("duree"), resultat.getInt("distance"), resultat.getBoolean("arrive"), resultat.getInt("noAvion"));
-			}	
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return result;
+		VolDAO volDAO = new VolDAO(conn.getConn());
+		return volDAO.find(tab);
+
 	}
 }

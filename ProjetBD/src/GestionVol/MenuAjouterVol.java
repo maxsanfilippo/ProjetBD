@@ -31,7 +31,14 @@ public class MenuAjouterVol {
 	
 	public void AfficherMenu(Connexion conn)
 	{
+		try {
+			conn.getConn().setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		conn.connect();
+		
 		
 		System.out.println("Veuillez saisir votre choix de type de VOl");
 		System.out.println("------------------------------------------------------------------------------");

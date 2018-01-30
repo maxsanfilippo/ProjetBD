@@ -18,7 +18,7 @@ public class AvionFretDAO extends DAO<AvionFret> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO AvionFret (" + obj.getVolumeMax()+", " + obj.getPoidsMax()+", "+obj.getNoAvion()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO AvionFret (volumeMax, poidsMax, noAvion) VALUES (" + obj.getVolumeMax()+", " + obj.getPoidsMax()+", "+obj.getNoAvion()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

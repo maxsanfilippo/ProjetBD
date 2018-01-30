@@ -18,7 +18,7 @@ public class PersonnelDAO extends DAO<Personnel> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Personnel (" + obj.getIdPerso()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Personnel (idPerso) VALUES (" + obj.getIdPerso()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

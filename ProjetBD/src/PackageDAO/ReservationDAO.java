@@ -19,7 +19,7 @@ public class ReservationDAO extends DAO<Reservation> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Reservation (" + obj.getNoResa()+", " + obj.getDateResa()+", "+obj.getPrixTotal()
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Reservation (noResa, dateResa, prixTotal, idPerso) VALUES (" + obj.getNoResa()+", " + obj.getDateResa()+", "+obj.getPrixTotal()
 			        +", "+obj.getIdPerso()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

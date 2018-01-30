@@ -21,8 +21,8 @@ public class VolDAO extends DAO<Vol> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Vol (" + obj.getNoVol()+", " + obj.getDateDepart()+", "+obj.getAeroOrigine()
-			        +", "+obj.getAeroDestination()+", "+obj.getDuree()+", "+obj.getDistance()+", "+obj.getDistance()+", "+obj.isArrive()+", "+obj.getNoAvion()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Vol (noVol, datedepart, aeroOrigine, aeroDestination, duree, distance, arrive, noAvion) VALUES (" + obj.getNoVol()+", " + obj.getDateDepart()+", "+obj.getAeroOrigine()
+			        +", "+obj.getAeroDestination()+", "+obj.getDuree()+", "+obj.getDistance()+", "+obj.isArrive()+", "+obj.getNoAvion()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -18,7 +18,7 @@ public class AvionDAO extends DAO<Avion> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Avion (" + obj.getNoAvion()+", " + obj.getRayon()+", "+obj.getNoModele()+")");
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO Avion (noAvion, rayon, noModele) VALUES (" + obj.getNoAvion()+", " + obj.getRayon()+", "+obj.getNoModele()+")");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

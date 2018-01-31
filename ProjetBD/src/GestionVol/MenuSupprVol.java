@@ -23,7 +23,6 @@ public class MenuSupprVol {
 		t[0]=noVol;
 		t[1]=dateVol;
 		Vol v = VDao.find(t);
-
 	}
 	
 	//rentrer le novol

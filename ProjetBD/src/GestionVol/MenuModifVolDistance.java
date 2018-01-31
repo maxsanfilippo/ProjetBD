@@ -27,6 +27,7 @@ public class MenuModifVolDistance {
 		System.out.println(vol.toString());
 		
 		try {
+			conn.getConn().commit();
 			conn.disconnect();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

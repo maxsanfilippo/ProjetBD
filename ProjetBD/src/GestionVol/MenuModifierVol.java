@@ -36,7 +36,8 @@ public class MenuModifierVol {
 		conn.connect();
 		
 		VolDAO volDAO = new VolDAO(conn.getConn());
-		return volDAO.find(tab);
+		Vol v = volDAO.find(tab);
+		return v;
 
 	}
 }

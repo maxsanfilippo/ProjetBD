@@ -10,6 +10,7 @@ import java.util.Calendar;
 import DonnePOJO.Personne;
 import DonnePOJO.Vol;
 import PackageDAO.Connexion;
+import PackageDAO.PersonneDAO;
 import PackageDAO.VolDAO;
 
 public class MenuModifVolArrivee {
@@ -27,7 +28,7 @@ public class MenuModifVolArrivee {
 		
 		modifierVolDuree(conn, vol);
 		
-		ajouterDureeVolPersonnesDuVol(conn, vol);// a terminer
+		ajouterDureeVolPersonnesDuVol(conn, vol);
 		
 		System.out.println("Le vol a ete modifie comme ceci :");
 		System.out.println(vol.toString());
@@ -47,15 +48,26 @@ public class MenuModifVolArrivee {
 		
 		try {
 			requete = conn.getConn().createStatement();
-			resultat = requete.executeQuery("SELECT * FROM Personne JOIN assure on assure.idPerso=Personne.idPerso WHERE assure.noVol="+vol.getNoVol());
+			resultat = requete.executeQuery("SELECT Personne.idPerso, Personne.nom, Personne.prenom, Personne.nbHeuresVol FROM Personne JOIN assure on assure.idPerso=Personne.idPerso "
+					+ " JOIN Vol ON assure.noVol = Vol.noVol WHERE assure.noVol='"+vol.getNoVol()+"'");// a terminer
 			while(resultat.next())
 			{
 				result.add(new Personne(resultat.getInt("idPerso"),resultat.getString("nom"),resultat.getString("prenom"),resultat.getInt("nbHeuresVol")));
-			}	
+			}
+			modifierNbHeuresVol(conn, result, vol);
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private void modifierNbHeuresVol(Connexion conn, ArrayList<Personne> result, Vol vol) {
+		for(Personne p : result) {
+			PersonneDAO personneDAO = new PersonneDAO(conn.getConn());
+			p.setNbHeuresVol(p.getNbHeuresVol()+vol.getDuree());
+			personneDAO.update(p);
+		}
+		
 	}
 
 	private void modifierVolDuree(Connexion conn, Vol vol) {

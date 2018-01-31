@@ -94,46 +94,58 @@ public class MenuAjouterVol {
 		Av = recupAvionFretDispo(conn, dt, noVol, aeroOrigine, volume, Poids, distance);
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
-		AfficherAvion(Av);
-		System.out.println("---------------------------------------");
-		//choisir AVION
-		int indAvion=  LectureClavier.lireEntier("veuiller choisir votre avion");
-		a = Av.get(indAvion);
-		Modele m;
-		ModeleDAO mD = new ModeleDAO(conn.getConn());
-		Object[] t = new Object[1];
-		t[0]=a.getNoModele();
-		m = mD.find(t);
-		
-		ArrayList<Personne> pl;
-		pl = recupPiloteDispo(conn, dt,a);
-		System.out.println("liste des Pilotes Disponible");
-		System.out.println("---------------------------------------");
-		AfficherPilotes(pl);
-		System.out.println("---------------------------------------");
-		System.out.println("veuiller choisir vos "+m.getNbPilotes()+" Pilotes");
-		System.out.println("---------------------------------------");
-		// choisir Pilote
-		ArrayList<Personne> ap = new ArrayList<Personne>();
-		for(int i=0; i<m.getNbPilotes();i++)
+		if(Av.size()==0)
 		{
-			ap.add(pl.get(LectureClavier.lireEntier("entrer le pilote num "+i)));
+			System.out.println("aucun avion dispo");
 		}
-		
-		
-		//creation
-		
-		Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,0,a.getNoAvion());
-		VolDAO volD = new VolDAO(conn.getConn());
-		volD.create(v);
-		
-		VolFret volF=new VolFret(volume, Poids, 15, noVol, dt);
-		VolFretDAO volFD = new VolFretDAO(conn.getConn());
-		volFD.create(volF);
-		
-		ajouterPilotes(ap,noVol,dt,conn);
-		
-		System.out.println("Le Vol a était creer");
+		else {
+			AfficherAvion(Av);
+			System.out.println("---------------------------------------");
+			//choisir AVION
+			int indAvion=  LectureClavier.lireEntier("veuiller choisir votre avion");
+			a = Av.get(indAvion);
+			Modele m;
+			ModeleDAO mD = new ModeleDAO(conn.getConn());
+			Object[] t = new Object[1];
+			t[0]=a.getNoModele();
+			m = mD.find(t);
+			
+			ArrayList<Personne> pl;
+			pl = recupPiloteDispo(conn, dt,a);
+			System.out.println("liste des Pilotes Disponible");
+			System.out.println("---------------------------------------");
+			if (pl.size()<=m.getNbPilotes())
+			{
+				System.out.println("Pas ");
+			}
+			else {
+				AfficherPilotes(pl);
+				System.out.println("---------------------------------------");
+				System.out.println("veuiller choisir vos "+m.getNbPilotes()+" Pilotes");
+				System.out.println("---------------------------------------");
+				// choisir Pilote
+				ArrayList<Personne> ap = new ArrayList<Personne>();
+				for(int i=0; i<m.getNbPilotes();i++)
+				{
+					ap.add(pl.get(LectureClavier.lireEntier("entrer le pilote num "+i)));
+				}
+				
+				
+				//creation
+				
+				Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,0,a.getNoAvion());
+				VolDAO volD = new VolDAO(conn.getConn());
+				volD.create(v);
+				
+				VolFret volF=new VolFret(volume, Poids, 15, noVol, dt);
+				VolFretDAO volFD = new VolFretDAO(conn.getConn());
+				volFD.create(volF);
+				
+				ajouterPilotes(ap,noVol,dt,conn);
+				
+				System.out.println("Le Vol a était creer");
+		}
+		}
 		
 	
 	}
@@ -171,62 +183,83 @@ public class MenuAjouterVol {
 		Av = recupAvionPassagerDispo(conn, dt, noVol, aeroOrigine, nbPlace, distance);
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
-		AfficherAvion(Av);
-		System.out.println("---------------------------------------");
-		//choisir AVION
-		int indAvion=  LectureClavier.lireEntier("veuiller choisir votre avion");
-		a = Av.get(indAvion);
-		Modele m;
-		ModeleDAO mD = new ModeleDAO(conn.getConn());
-		Object[] t = new Object[1];
-		t[0]=a.getNoModele();
-		m = mD.find(t);
-		
-		ArrayList<Personne> pl;
-		pl = recupPiloteDispo(conn, dt,a);
-		System.out.println("liste des Pilotes Disponible");
-		System.out.println("---------------------------------------");
-		AfficherPilotes(pl);
-		System.out.println("---------------------------------------");
-		System.out.println("veuiller choisir vos "+m.getNbPilotes()+" Pilotes");
-		System.out.println("---------------------------------------");
-		// choisir Pilote
-		ArrayList<Personne> ap = new ArrayList<Personne>();
-		for(int i=0; i<m.getNbPilotes();i++)
+		if (Av.size()==0)
 		{
-			ap.add(pl.get(LectureClavier.lireEntier("entrer le pilote num "+i)));
+			System.out.println("pas d avion dispo");
 		}
-		
-		ArrayList<Personne> ph;
-		ph = recupHotesseDispo(conn, dt);
-		System.out.println("liste des Hotesse Disponible");
-		System.out.println("---------------------------------------");
-		AfficherHotesse(ph);
-		System.out.println("---------------------------------------");
-		int nbHot;
-		nbHot = LectureClavier.lireEntier("Conbien d'Hotesse voulait vous?");
-		System.out.println("veuiller choisir vos Hotesse");
-		System.out.println("---------------------------------------");
-		// choisir Hotesse
-		ArrayList<Personne> aHot = new ArrayList<Personne>();
-		for(int i=0; i<nbHot;i++)
-		{
-			aHot.add(pl.get(LectureClavier.lireEntier("entrer l hotesse num "+i)));
+		else {
+			AfficherAvion(Av);
+			System.out.println("---------------------------------------");
+			//choisir AVION
+			int indAvion=  LectureClavier.lireEntier("veuiller choisir votre avion");
+			a = Av.get(indAvion);
+			Modele m;
+			ModeleDAO mD = new ModeleDAO(conn.getConn());
+			Object[] t = new Object[1];
+			t[0]=a.getNoModele();
+			m = mD.find(t);
+			
+			ArrayList<Personne> pl;
+			pl = recupPiloteDispo(conn, dt,a);
+			System.out.println("liste des Pilotes Disponible");
+			System.out.println("---------------------------------------");
+			if (pl.size()< m.getNbPilotes())
+			{
+				System.out.println("pas assez de pilote dispo");
+			}
+			else
+			{
+				AfficherPilotes(pl);
+				System.out.println("---------------------------------------");
+				System.out.println("veuiller choisir vos "+m.getNbPilotes()+" Pilotes");
+				System.out.println("---------------------------------------");
+				// choisir Pilote
+				ArrayList<Personne> ap = new ArrayList<Personne>();
+				for(int i=0; i<m.getNbPilotes();i++)
+				{
+					ap.add(pl.get(LectureClavier.lireEntier("entrer le pilote num "+i)));
+				}
+				
+				ArrayList<Personne> ph;
+				ph = recupHotesseDispo(conn, dt);
+				System.out.println("liste des Hotesse Disponible");
+				System.out.println("---------------------------------------");
+				if (ph.size()==0)
+				{
+					System.out.println("pas de pilote dispo");
+				}
+				else
+				{
+					AfficherHotesse(ph);
+					System.out.println("---------------------------------------");
+					int nbHot;
+					nbHot = LectureClavier.lireEntier("Conbien d'Hotesse voulait vous?");
+					System.out.println("veuiller choisir vos Hotesse");
+					System.out.println("---------------------------------------");
+					// choisir Hotesse
+					ArrayList<Personne> aHot = new ArrayList<Personne>();
+					for(int i=0; i<nbHot;i++)
+					{
+						aHot.add(pl.get(LectureClavier.lireEntier("entrer l hotesse num "+i)));
+					}
+					//creation
+					
+					Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,0,a.getNoAvion());
+					VolDAO volD = new VolDAO(conn.getConn());
+					volD.create(v);
+					
+					VolPassager volP=new VolPassager(nbPlEco, nbPlPr, nbPlAf, noVol, dt);
+					VolPassagerDAO volPD = new VolPassagerDAO(conn.getConn());
+					volPD.create(volP);
+					
+					creerPlaces(m,noVol,dt,conn);
+					ajouterPilotes(ap,noVol,dt,conn);
+					ajouterHotesse(aHot,noVol,dt,conn);
+					System.out.println("Le Vol a était creer");
+			
+				}
+			}
 		}
-		//creation
-		
-		Vol v = new Vol(noVol,dt,aeroOrigine,aeroDestination,distance,0,a.getNoAvion());
-		VolDAO volD = new VolDAO(conn.getConn());
-		volD.create(v);
-		
-		VolPassager volP=new VolPassager(nbPlEco, nbPlPr, nbPlAf, noVol, dt);
-		VolPassagerDAO volPD = new VolPassagerDAO(conn.getConn());
-		volPD.create(volP);
-		
-		creerPlaces(m,noVol,dt,conn);
-		ajouterPilotes(ap,noVol,dt,conn);
-		ajouterHotesse(aHot,noVol,dt,conn);
-		System.out.println("Le Vol a était creer");
 	
 	}
 

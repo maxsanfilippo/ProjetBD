@@ -35,7 +35,7 @@ static final String CONN_URL = "jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr
 	  	    // Liberation des ressources et fermeture de la connexion...
 	       	// A COMPLETER 
 	 	    
-	  	    System.out.println("bye.");
+	  	    
 	  	    
 	  	    // traitement d'exception
           } catch (SQLException e) {
@@ -52,6 +52,7 @@ static final String CONN_URL = "jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr
 
 	public void disconnect() throws SQLException {
 		conn.close();
+		System.out.println("bye.");
 	}
 	
 	public Connection getConn()

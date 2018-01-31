@@ -1,6 +1,7 @@
 package GestionVol;
 
 import DonnePOJO.Vol;
+import Outils.LectureClavier;
 import PackageDAO.Connexion;
 
 public class MenuChoixModificationVol {
@@ -13,11 +14,11 @@ public class MenuChoixModificationVol {
 		System.out.println("4 : signaler arrivée");
 		System.out.println("5 : avion assigné");
 		System.out.println("6 : ajouter un personnel");
-		System.out.println("6 : supprimer un personnel");
+		System.out.println("7 : supprimer un personnel");
 		
 		
 		// saisie choix
-		int choix = 0;
+		int choix = LectureClavier.lireEntier("Choisissez ce que vous voulez modifier sur le vol");
 		switch(choix) {
 			case 1: MenuModifVolAeroOrigine menuAeroOrigine = new MenuModifVolAeroOrigine();
 			menuAeroOrigine.mainModifVolAeroOrigine(conn, vol);break;

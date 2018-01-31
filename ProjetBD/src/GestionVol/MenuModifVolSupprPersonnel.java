@@ -15,10 +15,19 @@ import PackageDAO.Connexion;
 
 public class MenuModifVolSupprPersonnel {
 	public void mainModifVolSupprPersonnel(Connexion conn, Vol vol) {
+		conn.connect();
+		
 		int choix = LectureClavier.lireEntier("Voulez-vous supprimer un pilote ou une hotesse ? (tapez 1 ou 2)");
 		switch(choix) {
 			case 1: supprimerPilote(conn, vol);break;
 			case 2: supprimerHotesse(conn, vol);break;
+		}
+		
+		try {
+			conn.disconnect();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -35,12 +44,11 @@ public class MenuModifVolSupprPersonnel {
 		ResultSet resultat;
 		ArrayList<Hotesse> result = new ArrayList<Hotesse>();
 		
-		conn.connect();
 		try {
 			requete = conn.getConn().createStatement();
 			
 			resultat = requete.executeQuery("SELECT Hotesse.idPerso, Hotesse.secondeLangue FROM Hotesse JOIN assure ON assure.idPerso=Hotesse.idPerso"
-					+ " JOIN Vol on Vol.noVol=assure.noVol WHERE Vol.noVol AND Vol.datedepart=assure.datedepart WHERE Vol.noVol = '"+vol.getNoVol()+"'");
+					+ " JOIN Vol on Vol.noVol=assure.noVol WHERE Vol.noVol AND Vol.datedepart=assure.datedepart WHERE Vol.noVol = '"+vol.getNoVol()+"' AND Vol.datedepart=TIMESTAMP'"+vol.getDateDepart()+"'");
 			
 			while(resultat.next())
 			{
@@ -85,12 +93,11 @@ public class MenuModifVolSupprPersonnel {
 		ResultSet resultat;
 		ArrayList<Pilote> result = new ArrayList<Pilote>();
 		
-		conn.connect();
 		try {
 			requete = conn.getConn().createStatement();
 			
 			resultat = requete.executeQuery("SELECT Pilote.idPerso FROM Pilote JOIN assure ON assure.idPerso=Pilote.idPerso"
-					+ " JOIN Vol on Vol.noVol=assure.noVol AND Vol.datedepart=assure.datedepart WHERE Vol.noVol = '"+vol.getNoVol()+"'");
+					+ " JOIN Vol on Vol.noVol=assure.noVol AND Vol.datedepart=assure.datedepart WHERE Vol.noVol = '"+vol.getNoVol()+"' AND Vol.datedepart=TIMESTAMP'"+vol.getDateDepart()+"'");
 			
 			while(resultat.next())
 			{

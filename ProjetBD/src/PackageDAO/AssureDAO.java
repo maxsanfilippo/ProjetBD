@@ -1,7 +1,6 @@
 package PackageDAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -33,7 +32,7 @@ public class AssureDAO extends DAO<Assure> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM assure WHERE idPerso = " + obj.getIdPerso()+" AND noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM assure WHERE idPerso = " + obj.getIdPerso()+" AND noVol = '"+obj.getNoVol()+"' AND datedepart = TIMESTAMP '"+obj.getDateDepart()+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,12 +49,12 @@ public class AssureDAO extends DAO<Assure> {
 	public Assure find(Object[] tab) {
 		int idPers = (int) tab[0];
 		String noVol = (String) tab[1];
-		Date dt = (Date) tab[2];
+		TIMESTAMP dt = (TIMESTAMP) tab[2];
 		Assure A =null;
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Assure WHERE noVol = '" + noVol+"' AND dateDepart = '" + dt + "' AND idPerso ="+ idPers);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Assure WHERE noVol = '" + noVol+"' AND dateDepart = TIMESTAMP '" + dt + "' AND idPerso ="+ idPers);
 		      if(result.first())
 		      {
 		    	  A = new Assure(result.getInt("idPerso"),result.getString("noVol"), new TIMESTAMP(result.getString("dateDepart")));

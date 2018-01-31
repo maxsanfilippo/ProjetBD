@@ -69,7 +69,7 @@ public class VolPassagerDAO extends DAO<VolPassager> {
 		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM VolPassager WHERE noVol = '" + novol+"' AND dateDepart = TIMESTAMP '" + dt+"'");
 		      if(result.first())
 
-		          vol = new VolPassager(result.getInt("placesMinEco"),result.getInt("placesMinPremiere"),result.getInt("placesMinAffaire"),result.getString("noVol"),new TIMESTAMP(result.getDate("dateDepart")));         
+		          vol = new VolPassager(result.getInt("placesMinEco"),result.getInt("placesMinPremiere"),result.getInt("placesMinAffaire"),result.getString("noVol"),new TIMESTAMP(result.getString("dateDepart")));         
 		          
 		    } catch (SQLException e) {
 

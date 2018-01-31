@@ -58,7 +58,7 @@ public class AssureDAO extends DAO<Assure> {
 		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Assure WHERE noVol = '" + noVol+"' AND dateDepart = '" + dt + "' AND idPerso ="+ idPers);
 		      if(result.first())
 		      {
-		    	  A = new Assure(result.getInt("idPerso"),result.getString("noVol"), new TIMESTAMP(result.getDate("dateDepart")));
+		    	  A = new Assure(result.getInt("idPerso"),result.getString("noVol"), new TIMESTAMP(result.getString("dateDepart")));
 		      } 
 		      } catch (SQLException e) {
 

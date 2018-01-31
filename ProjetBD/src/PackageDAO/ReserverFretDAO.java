@@ -68,7 +68,7 @@ public class ReserverFretDAO extends DAO<ReserverFret> {
 		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM ReserverFret WHERE noResa = " + resa + " AND noVol = '"+ NVol+"' AND dateDepart = TIMESTAMP '"+dt+"'");
 		      if(result.first())
 		      {
-		    	  rF = new ReserverFret(result.getInt("VolumeResa"),result.getInt("poidsResa"),result.getInt("noResa"),result.getString("noVol"),new TIMESTAMP(result.getDate("dateDepart")));
+		    	  rF = new ReserverFret(result.getInt("VolumeResa"),result.getInt("poidsResa"),result.getInt("noResa"),result.getString("noVol"),new TIMESTAMP(result.getString("dateDepart")));
 		      }
 		} catch (SQLException e) {
 

@@ -69,7 +69,7 @@ public class PlaceDAO extends DAO<Place> {
 		      {
 		    	  Classe cl = convertInClasse(result.getString("classe"));
 		    	  Position p = convertInPosition(result.getString("position"));
-		    	  Ht = new Place(result.getInt("idPlace"),result.getString("noPlace"),cl,p,result.getInt("prix"),result.getString("noVol"),new TIMESTAMP(result.getDate("dateDepart")),result.getInt("noResa"));
+		    	  Ht = new Place(result.getInt("idPlace"),result.getString("noPlace"),cl,p,result.getInt("prix"),result.getString("noVol"),new TIMESTAMP(result.getString("dateDepart")),result.getInt("noResa"));
 		      }
 		} catch (SQLException e) {
 		      e.printStackTrace();

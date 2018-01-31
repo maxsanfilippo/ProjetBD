@@ -1,14 +1,16 @@
 package GestionVol;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
 
+import DonnePOJO.Personne;
 import DonnePOJO.Vol;
-import Outils.LectureClavier;
 import PackageDAO.Connexion;
 import PackageDAO.VolDAO;
-import oracle.sql.TIMESTAMP;
 
 public class MenuModifVolArrivee {
 
@@ -25,6 +27,9 @@ public class MenuModifVolArrivee {
 		
 		modifierVolDuree(conn, vol);
 		
+		ajouterDureeVolPersonnesDuVol(conn, vol);// a terminer
+		
+		System.out.println("Le vol a ete modifie comme ceci :");
 		System.out.println(vol.toString());
 		
 		try {
@@ -35,10 +40,35 @@ public class MenuModifVolArrivee {
 		}
 	}
 
+	private void ajouterDureeVolPersonnesDuVol(Connexion conn, Vol vol) {
+		Statement requete;
+		ResultSet resultat;
+		ArrayList<Personne> result = new ArrayList<Personne>();
+		
+		try {
+			requete = conn.getConn().createStatement();
+			resultat = requete.executeQuery("SELECT * FROM Personne JOIN assure on assure.idPerso=Personne.idPerso WHERE assure.noVol="+vol.getNoVol());
+			while(resultat.next())
+			{
+				result.add(new Personne(resultat.getInt("idPerso"),resultat.getString("nom"),resultat.getString("prenom"),resultat.getInt("nbHeuresVol")));
+			}	
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	private void modifierVolDuree(Connexion conn, Vol vol) {
 		VolDAO volDAO = new VolDAO(conn.getConn());
-		Date d = new Date(System.currentTimeMillis());
-		//vol.setDuree(new TIMESTAMP(d));
+		long d = Calendar.getInstance().getTime().getTime();
+		try {
+			d = d-vol.getDateDepart().dateValue().getTime();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int duree = (int) d;
+		vol.setDuree(duree);
 		volDAO.update(vol);
 	}
 

@@ -36,7 +36,7 @@ public class VolDAO extends DAO<Vol> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Vol WHERE noVol = " + obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM Vol WHERE noVol = '" + obj.getNoVol()+"' AND datedepart = TIMESTAMP '"+obj.getDateDepart()+"'");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,9 +49,9 @@ public class VolDAO extends DAO<Vol> {
 		try {
 			ResultSet result = this.connect.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE,
-			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Vol SET aeroOrigine = " + obj.getAeroOrigine()+", aeroDestination = "+obj.getAeroDestination()
-			        +", duree = "+obj.getDuree()+", distance = "+obj.getDistance()+", arrive = "+obj.isArrive()+", noAvion = "+obj.getNoAvion()
-			        +" WHERE noVol = "+obj.getNoVol()+" AND datedepart = "+obj.getDateDepart());
+			        ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE Vol SET aeroOrigine = '" + obj.getAeroOrigine()+"', aeroDestination = '"+obj.getAeroDestination()
+			        +"', duree = "+obj.getDuree()+", distance = "+obj.getDistance()+", arrive = "+obj.isArrive()+", noAvion = "+obj.getNoAvion()
+			        +" WHERE noVol = '"+obj.getNoVol()+"' AND datedepart = TIMESTAMP '"+obj.getDateDepart()+"'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -61,12 +61,12 @@ public class VolDAO extends DAO<Vol> {
 	@Override
 	public Vol find(Object[] T) {
 		String novol = (String) T[0];
-		Date dt = (Date) T[1];
+		TIMESTAMP dt = (TIMESTAMP) T[1];
 		Vol vol = null;
 		try {
 		      ResultSet result = this.connect.createStatement(
 		        ResultSet.TYPE_SCROLL_INSENSITIVE,
-		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Vol WHERE noVol = " + novol+" AND datedepart = " + dt);
+		        ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Vol WHERE noVol = '" + novol+"' AND datedepart =TIMESTAMP '" + dt+"'");
 		      if(result.first())
 
 		          vol = new Vol(result.getString("noVol"), new TIMESTAMP(result.getDate("dateDepart")),result.getString("aeroOrigine"),result.getString("aeroDestination"),result.getInt("duree"),result.getInt("distance"),result.getInt("arrive"),result.getInt("noAvion"));         

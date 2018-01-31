@@ -54,9 +54,9 @@ public class MenuAjouterVol {
 		switch (choixType)
 		{
 		case "1":
-			ajouterVolFret(conn);
+			ajouterVolFret(conn);break;
 		case "2":
-			ajouterVolPassager(conn);
+			ajouterVolPassager(conn);break;
 		}
 		
 		try {
@@ -135,6 +135,7 @@ public class MenuAjouterVol {
 		volFD.create(volF);
 		
 		ajouterPilotes(ap,noVol,dt,conn);
+		
 		System.out.println("Le Vol a était creer");
 		
 	

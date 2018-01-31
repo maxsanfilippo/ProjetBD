@@ -87,7 +87,6 @@ public class MenuSupprVol {
 		else{
 			RecupVolPassagerSim(v,conn);
 		}
-		
 		VDao.delete(v);
 	}
 

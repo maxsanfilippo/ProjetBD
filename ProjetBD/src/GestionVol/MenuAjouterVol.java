@@ -1,7 +1,6 @@
 package GestionVol;
 
 import java.sql.*;
-import java.text.DateFormat;
 import java.util.ArrayList;
 
 import DonnePOJO.Assure;
@@ -9,7 +8,6 @@ import DonnePOJO.Avion;
 import DonnePOJO.Classe;
 import DonnePOJO.Modele;
 import DonnePOJO.Personne;
-import DonnePOJO.Pilote;
 import DonnePOJO.Place;
 import DonnePOJO.Position;
 import DonnePOJO.Vol;
@@ -17,7 +15,6 @@ import DonnePOJO.VolFret;
 import DonnePOJO.VolPassager;
 import Outils.LectureClavier;
 import PackageDAO.AssureDAO;
-import PackageDAO.AvionDAO;
 import PackageDAO.Connexion;
 import PackageDAO.ModeleDAO;
 import PackageDAO.PlaceDAO;
@@ -94,7 +91,7 @@ public class MenuAjouterVol {
 		Avion a;
 		
 		ArrayList<Avion> Av;
-		Av = recupAvionFretDispo(conn, dt, noVol, aeroOrigine, volume, Poids);
+		Av = recupAvionFretDispo(conn, dt, noVol, aeroOrigine, volume, Poids, distance);
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
 		AfficherAvion(Av);
@@ -166,10 +163,12 @@ public class MenuAjouterVol {
 		int nbPlAf= LectureClavier.lireEntier("Entree le nombre minimun en classe Affaire");
 		int nbPlPr = LectureClavier.lireEntier("Entree le nombre minimun en classe Premiere");
 		
+		int nbPlace = nbPlAf+nbPlEco+nbPlPr;
+		
 		Avion a;
 		
 		ArrayList<Avion> Av;
-		Av = recupAvionPassagerDispo(conn, dt, noVol, aeroOrigine);
+		Av = recupAvionPassagerDispo(conn, dt, noVol, aeroOrigine, nbPlace, distance);
 		System.out.println("liste des Avions Disponible");
 		System.out.println("---------------------------------------");
 		AfficherAvion(Av);
@@ -367,7 +366,7 @@ public class MenuAjouterVol {
 		
 	}
 
-	public ArrayList<Avion> recupAvionFretDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine, int volume, int poids) {
+	public ArrayList<Avion> recupAvionFretDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine, int volume, int poids, int rayon) {
 		Statement requete;
 		ResultSet resultat;
 		ArrayList<Avion> result = new ArrayList<Avion>();
@@ -379,12 +378,23 @@ public class MenuAjouterVol {
 					+" JOIN AVION ON AVION.noAvion = Vol.noAvion"
 					+" JOIN AvionFret ON AvionFret.noAvion = AVION.noAvion"
 					+" WHERE Vol.datedepart IN(SELECT max(Vol.dateDepart) FROM Vol GROUP BY noAvion) AND aeroDestination= '"+aeroOrigine+"' AND arrive = 0"
-					+" AND AvionFret.volumeMax >= "+volume+" AND AvionFret.poidsMax >= "+poids);
+					+" AND AvionFret.volumeMax >= "+volume+" AND AvionFret.poidsMax >= "+poids+" AND Avion.rayon >= "+ rayon);
 
 			while(resultat.next())
 			{
 				result.add(new Avion(resultat.getInt("noAvion"), resultat.getInt("rayon"), resultat.getString("noModele")));
 			}	
+			
+			resultat = requete.executeQuery("SELECT Avion.noAvion, Avion.rayon, Avion.noModele FROM Avion"
+					+" JOIN AvionFret ON AvionFret.noAvion = AVION.noAvion"
+					+" WHERE Avion.noAvion NOT IN( Select noAvion From VOL) AND Avion.rayon >= "+ rayon);
+
+			while(resultat.next())
+			{
+				result.add(new Avion(resultat.getInt("noAvion"), resultat.getInt("rayon"), resultat.getString("noModele")));
+			}
+			
+			
 		} catch (SQLException e)
 		{
 			e.printStackTrace();
@@ -392,7 +402,7 @@ public class MenuAjouterVol {
 		return result;
 	}
 	
-	public ArrayList<Avion> recupAvionPassagerDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine) {
+	public ArrayList<Avion> recupAvionPassagerDispo(Connexion conn, TIMESTAMP dt, String noVol, String aeroOrigine, int nbPlace, int rayon) {
 		Statement requete;
 		ResultSet resultat;
 		ArrayList<Avion> result = new ArrayList<Avion>();
@@ -400,14 +410,24 @@ public class MenuAjouterVol {
 		
 		try {
 			requete = conn.getConn().createStatement();
-			resultat = requete.executeQuery("SELECT * FROM AVIONPASSAGER WHERE (noAvion NOT IN "
-					+ "(select noAvion From Vol where Vol.arrive=false AND datedepart > "+dt+") AND "
-					+ "noAvion IN (select max(datedepart), noAvion From Vol where Vol.arrive=true"
-					+ " AND aeroDestination = " + aeroOrigine +")) OR noAvion IN (select noAvion from Vol)");
+			resultat = requete.executeQuery("SELECT Avion.noAvion, Avion.rayon, Avion.noModele FROM Vol"
+				+" JOIN AVION ON AVION.noAvion = Vol.noAvion"
+				+" JOIN AvionPassager ON AvionPassager.noAvion = AVION.noAvion"
+				+" WHERE Vol.datedepart IN(SELECT max(Vol.dateDepart) FROM Vol GROUP BY noAvion) AND aeroDestination='"+aeroOrigine+"' AND arrive =1"
+				+" AND AvionPassager.nbPlaces>="+nbPlace +" AND Avion.rayon >= "+ rayon);
 			while(resultat.next())
 			{
 				result.add(new Avion(resultat.getInt("noAvion"), resultat.getInt("rayon"), resultat.getString("noModele")));
 			}	
+			
+			resultat = requete.executeQuery("SELECT Avion.noAvion, Avion.rayon, Avion.noModele FROM Avion"
+					+" JOIN AvionPassager ON AvionPassager.noAvion = AVION.noAvion"
+					+" WHERE Avion.noAvion NOT IN( Select noAvion From VOL) AND Avion.rayon >= "+ rayon);
+
+			while(resultat.next())
+			{
+				result.add(new Avion(resultat.getInt("noAvion"), resultat.getInt("rayon"), resultat.getString("noModele")));
+			}
 		} catch (SQLException e)
 		{
 			e.printStackTrace();

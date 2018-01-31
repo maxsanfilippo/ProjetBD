@@ -306,7 +306,7 @@ public class MenuAjouterVol {
 		
 		try {
 			requete = conn.getConn().createStatement();
-			resultat = requete.executeQuery("SELECT * FROM Hotesse join Personne on Personne.idPerso=Hotesse.idPerso WHERE idPerso NOT IN (select * From assure join Vol on assure.noVol=Vol.noVol And assure.datedepart=Vol.datedepart where Vol.arrive=false AND datedepart > "+dt+")");
+			resultat = requete.executeQuery("SELECT Hotesse.idPerso, Personne.nom, Personne.prenom, Personne.nbHeuresVol FROM Hotesse join Personne on Personne.idPerso=Hotesse.idPerso WHERE Hotesse.idPerso NOT IN (select * From assure join Vol on assure.noVol=Vol.noVol And assure.datedepart=Vol.datedepart where Vol.arrive=false AND Vol.datedepart > TIMESTAMP '"+dt+"')");
 			while(resultat.next())
 			{
 				result.add(new Personne(resultat.getInt("idPerso"),resultat.getString("nom"),resultat.getString("prenom"),resultat.getInt("nbHeuresVol")));
@@ -377,7 +377,7 @@ public class MenuAjouterVol {
 			resultat = requete.executeQuery("SELECT Avion.noAvion, Avion.rayon, Avion.noModele FROM Vol"
 					+" JOIN AVION ON AVION.noAvion = Vol.noAvion"
 					+" JOIN AvionFret ON AvionFret.noAvion = AVION.noAvion"
-					+" WHERE Vol.datedepart IN(SELECT max(Vol.dateDepart) FROM Vol GROUP BY noAvion) AND aeroDestination= '"+aeroOrigine+"' AND arrive = 0"
+					+" WHERE Vol.datedepart IN(SELECT max(Vol.dateDepart) FROM Vol GROUP BY noAvion) AND aeroDestination= '"+aeroOrigine+"' AND arrive = 1"
 					+" AND AvionFret.volumeMax >= "+volume+" AND AvionFret.poidsMax >= "+poids+" AND Avion.rayon >= "+ rayon);
 
 			while(resultat.next())
